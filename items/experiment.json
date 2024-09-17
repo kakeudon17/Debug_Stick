@@ -1,0 +1,22 @@
+{
+    "format_version": "1.21.10",
+    "minecraft:item": {
+        "description": {
+            "identifier": "edit:experiment",
+            "menu_category": {
+                "category": "equipment"
+            }
+        },
+        "components": {
+            "minecraft:hand_equipped": true,
+            "minecraft:max_stack_size": 1,
+            "minecraft:icon": "stick",
+            "minecraft:glint": true,
+            "minecraft:can_destroy_in_creative": true,
+            "minecraft:display_name": {
+                "value": "実験ツール"
+            },
+            "minecraft:custom_components": ["edit:experiment"]
+        }
+    }
+}

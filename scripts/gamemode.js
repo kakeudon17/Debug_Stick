@@ -15,14 +15,21 @@ world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
 
                 const response = await form.show(source);
 
-                if (response.selection === 0) {
-                    source.runCommand("gamemode survival");
-                } else if (response.selection === 1) {
-                    source.runCommand("gamemode adventure");
-                } else if (response.selection === 2) {
-                    source.runCommand("gamemode creative");
-                } else if (response.selection === 3) {
-                    source.runCommand("gamemode spectator");
+                switch (response.selection) {
+                    case 0:
+                        source.runCommand("gamemode survival");
+                        break;
+                    case 1:
+                        source.runCommand("gamemode adventure");
+                        break;
+                    case 2:
+                        source.runCommand("gamemode creative");
+                        break;
+                    case 3:
+                        source.runCommand("gamemode spectator");
+                        break;
+                    default:
+                        break; // 何もしない
                 }
             }
         }

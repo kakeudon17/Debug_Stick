@@ -45,7 +45,7 @@ world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
                 if (block) {
                     const blockLocation = block.location;
                     const { x, y, z } = blockLocation;
-                    const blockId = block.type.id;
+                    const blockId = block.typeId;
 
                     let count = playerCounts.get(source.nameTag) || 0;
 
@@ -54,30 +54,8 @@ world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
                             source.runCommand(`tellraw @s {"rawtext":[{"text":"§cX§r:${x} §aY§r:${y} §9Z§r:${z}\n${blockId}"}]}`)
                             break;
                         case 1:
-                            if (blockId.includes("stairs")) {
-                                source.runCommand(`execute if block ${x} ${y} ${z} ${blockId} ["weirdo_direction"=0,"upside_down_bit"=false] run setblock ${x} ${y} ${z} ${blockId} ["weirdo_direction"=0,"upside_down_bit"=false]`)
-                                source.runCommand(`execute if block ${x} ${y} ${z} ${blockId} ["weirdo_direction"=0,"upside_down_bit"=true] run setblock ${x} ${y} ${z} ${blockId} ["weirdo_direction"=0,"upside_down_bit"=true]`)
-                                source.runCommand(`execute if block ${x} ${y} ${z} ${blockId} ["weirdo_direction"=1,"upside_down_bit"=false] run setblock ${x} ${y} ${z} ${blockId} ["weirdo_direction"=0,"upside_down_bit"=false]`)
-                                source.runCommand(`execute if block ${x} ${y} ${z} ${blockId} ["weirdo_direction"=1,"upside_down_bit"=true] run setblock ${x} ${y} ${z} ${blockId} ["weirdo_direction"=0,"upside_down_bit"=true]`)
-                                source.runCommand(`execute if block ${x} ${y} ${z} ${blockId} ["weirdo_direction"=2,"upside_down_bit"=false] run setblock ${x} ${y} ${z} ${blockId} ["weirdo_direction"=0,"upside_down_bit"=false]`)
-                                source.runCommand(`execute if block ${x} ${y} ${z} ${blockId} ["weirdo_direction"=2,"upside_down_bit"=true] run setblock ${x} ${y} ${z} ${blockId} ["weirdo_direction"=0,"upside_down_bit"=true]`)
-                                source.runCommand(`execute if block ${x} ${y} ${z} ${blockId} ["weirdo_direction"=3,"upside_down_bit"=false] run setblock ${x} ${y} ${z} ${blockId} ["weirdo_direction"=0,"upside_down_bit"=false]`)
-                                source.runCommand(`execute if block ${x} ${y} ${z} ${blockId} ["weirdo_direction"=3,"upside_down_bit"=true] run setblock ${x} ${y} ${z} ${blockId} ["weirdo_direction"=0,"upside_down_bit"=true]`)
-                                source.runCommand(`playsound random.levelup @s ~ ~ ~ 0.5`)
-                            }
-                            else if (blockId.includes("slab")) {
-                                source.runCommand(`execute if block ${x} ${y} ${z} ${blockId} ["minecraft:vertical_half"="top"] run setblock ${x} ${y} ${z} ${blockId} ["minecraft:vertical_half"="top"]`)
-                                source.runCommand(`execute if block ${x} ${y} ${z} ${blockId} ["minecraft:vertical_half"="bottom"] run setblock ${x} ${y} ${z} ${blockId} ["minecraft:vertical_half"="top"]`)
-                                source.runCommand(`playsound random.levelup @s ~ ~ ~ 0.5`)
-                            }
-                            else if (blockId.includes("end_rod") || blockId.includes("lightning_rod")) {
-                                source.runCommand(`execute if block ${x} ${y} ${z} ${blockId} ["facing_direction"=0] run setblock ${x} ${y} ${z} ${blockId} ["facing_direction"=0]`)
-                                source.runCommand(`execute if block ${x} ${y} ${z} ${blockId} ["facing_direction"=1] run setblock ${x} ${y} ${z} ${blockId} ["facing_direction"=0]`)
-                                source.runCommand(`execute if block ${x} ${y} ${z} ${blockId} ["facing_direction"=2] run setblock ${x} ${y} ${z} ${blockId} ["facing_direction"=0]`)
-                                source.runCommand(`execute if block ${x} ${y} ${z} ${blockId} ["facing_direction"=3] run setblock ${x} ${y} ${z} ${blockId} ["facing_direction"=0]`)
-                                source.runCommand(`execute if block ${x} ${y} ${z} ${blockId} ["facing_direction"=4] run setblock ${x} ${y} ${z} ${blockId} ["facing_direction"=0]`)
-                                source.runCommand(`execute if block ${x} ${y} ${z} ${blockId} ["facing_direction"=5] run setblock ${x} ${y} ${z} ${blockId} ["facing_direction"=0]`)
-                                source.runCommand(`playsound random.levelup @s ~ ~ ~ 0.5`)
+                            if (blockId.includes("test")) {
+                                //text
                             }
                             else {
                                 source.runCommand(`titleraw @s actionbar {"rawtext":[{"text":"対象外\n§c${blockId}"}]}`)

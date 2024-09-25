@@ -36,7 +36,6 @@ source.runCommand(`execute if block ${x} ${y} ${z} ${blockId} ["facing_direction
 source.runCommand(`execute if block ${x} ${y} ${z} ${blockId} ["facing_direction"=4,"button_pressed_bit"=true] run setblock ${x} ${y} ${z} ${blockId} ["facing_direction"=4,"button_pressed_bit"=true]`)
 source.runCommand(`execute if block ${x} ${y} ${z} ${blockId} ["facing_direction"=5,"button_pressed_bit"=false] run setblock ${x} ${y} ${z} ${blockId} ["facing_direction"=5,"button_pressed_bit"=false]`)
 source.runCommand(`execute if block ${x} ${y} ${z} ${blockId} ["facing_direction"=5,"button_pressed_bit"=true] run setblock ${x} ${y} ${z} ${blockId} ["facing_direction"=5,"button_pressed_bit"=true]`)
-
 //アメジスト
 source.runCommand(`execute if block ${x} ${y} ${z} ${blockId} ["minecraft:block_face"="up"] run setblock ${x} ${y} ${z} ${blockId} ["minecraft:block_face"="up"]`)
 source.runCommand(`execute if block ${x} ${y} ${z} ${blockId} ["minecraft:block_face"="down"] run setblock ${x} ${y} ${z} ${blockId} ["minecraft:block_face"="down"]`)

@@ -70,5 +70,4 @@ world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
                 }
             },
         }
-    );
 });

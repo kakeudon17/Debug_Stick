@@ -2,3 +2,16 @@ pack.name=デバッグ棒 RP
 pack.description=Java版にあるデバッグ棒の再現です。
 pack.item.add:debug_stick.name=§dデバッグ棒
 pack.item.add:experiment.name=§d検証ツール
+
+## code
+pack.stairs.bottom=「half」をbottomに変更しました
+pack.stairs.top=「half」をtopに変更しました
+pack.stairs.west=「facing」をwestに変更しました
+pack.stairs.south=「facing」をsouthに変更しました
+pack.stairs.north=「facing」をnorthに変更しました
+pack.stairs.east=「facing」をeastに変更しました
+pack.slab.bottom=「type」をbottomに変更しました
+pack.slab.top=「type」をtopに変更しました
+pack.slab.double=「type」をdoubleに変更しました
+
+pack.no.properties=はプロパティを持っていません

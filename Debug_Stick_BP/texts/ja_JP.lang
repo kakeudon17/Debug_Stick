@@ -1,4 +1,2 @@
 pack.name=デバッグ棒 BP
 pack.description=Java版にあるデバッグ棒の再現です。
-pack.item.add:debug_stick.name=§dデバッグ棒
-pack.item.add:experiment.name=§d検証ツール

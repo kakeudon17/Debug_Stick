@@ -2,3 +2,7 @@ pack.name=Debug Stick RP
 pack.description=This is a recreation of the Debug Stick found in the Java version.
 pack.item.add:debug_stick.name=§dDebug Stick
 pack.item.add:experiment.name=§dValidation tools
+
+## code
+pack.stairs.top="half" to bottom
+pack.stairs.bottom="half" to top

@@ -2,27 +2,31 @@
     "format_version": 2,
     "header": {
         "min_engine_version": [1, 21, 10],
-        "name": "Edit Tools",
-        "description": "This is a behavior pack for Edit Tools.",
-        "uuid": "3e2ebf5f-75f3-4c2c-b7bd-8a95d6f794d8",
+        "name": "pack.name",
+        "description": "pack.description",
+        "uuid": "f4c1130d-fa11-47fd-9aab-14f95539744e",
         "version": [1, 0, 0]
     },
     "modules": [
         {
             "type": "script",
-            "uuid": "0133345d-5451-403d-b9a3-d45de6cf6265",
+            "uuid": "57aa1b70-c8cb-42f9-b629-ea0fc68b9b71",
             "entry": "scripts/index.js",
             "version": [1, 0, 0]
         }
     ],
     "dependencies": [
         {
+            "uuid": "5ca1890c-7c15-4d71-811f-940438e9f3b8",
+            "version": [1, 0, 0]
+        },
+        {
             "module_name": "@minecraft/server",
-            "version": "1.13.0"
+            "version": "1.14.0"
         },
         {
             "module_name": "@minecraft/server-ui",
-            "version": "1.2.0"
+            "version": "1.3.0"
         }
     ]
 }

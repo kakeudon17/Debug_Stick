@@ -95,7 +95,7 @@ world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
 
             const mode = modeMap.get(source.id) || 0;
 
-            source.sendMessage(`${blockId}\n${blockStatesObject}\n${mode}`)
+            source.sendMessage(`${blockId}\n${blockStatesObject}`)
         }
     });
 });

@@ -1,8 +1,8 @@
 import { world } from "@minecraft/server";
 
-const title = "title @s actionbar";
+const title = "titleraw @s actionbar";
 let modeMap = new Map();
-export { modeMap }
+export { modeMap, title }
 
 world.afterEvents.playerBreakBlock.subscribe(ev => {
     const itemStack = ev.itemStackAfterBreak;
@@ -23,52 +23,93 @@ world.afterEvents.playerBreakBlock.subscribe(ev => {
         player.runCommand(`setblock ${x} ${y} ${z} ${blockId} [${blockStatesObject}]`);
 
         let mode = modeMap.get(player.id) || 0;
-
-        if (blockId.includes("minecraft:") && blockId.includes("_stairs")) {
-            mode = mode >= 1 ? 0 : mode + 1;
-            switch (mode) {
-                case 0:
-                    if (blockStatesObject.includes('"upside_down_bit"=true')) {
-                        player.runCommand(`${title} 「half」を選択しました（true）`);
-                    }
-                    if (blockStatesObject.includes('"upside_down_bit"=false')) {
-                        player.runCommand(`${title} 「half」を選択しました（false）`);
-                    }
-                    break;
-                case 1:
-                    if (blockStatesObject.includes('"weirdo_direction"=0')) {
-                        player.runCommand(`${title} 「facing」を選択しました（east）`);
-                    }
-                    if (blockStatesObject.includes('"weirdo_direction"=1')) {
-                        player.runCommand(`${title} 「facing」を選択しました（west）`);
-                    }
-                    if (blockStatesObject.includes('"weirdo_direction"=2')) {
-                        player.runCommand(`${title} 「facing」を選択しました（south）`);
-                    }
-                    if (blockStatesObject.includes('"weirdo_direction"=3')) {
-                        player.runCommand(`${title} 「facing」を選択しました（north）`);
-                    }
-                    break;
+        if (blockId.includes("minecraft:")) {
+            if (blockId.includes("_stairs")) {
+                mode = mode >= 1 ? 0 : mode + 1;
+                switch (mode) {
+                    case 0:
+                        if (blockStatesObject.includes('"upside_down_bit"=true')) {
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.stairs.bottom"}]}`);
+                        }
+                        else if (blockStatesObject.includes('"upside_down_bit"=false')) {
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.stairs.top"}]}`);
+                        }
+                        break;
+                    case 1:
+                        if (blockStatesObject.includes('"weirdo_direction"=0')) {
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.stairs.west"}]}`);
+                        }
+                        else if (blockStatesObject.includes('"weirdo_direction"=1')) {
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.stairs.south"}]}`);
+                        }
+                        else if (blockStatesObject.includes('"weirdo_direction"=2')) {
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.stairs.north"}]}`);
+                        }
+                        else if (blockStatesObject.includes('"weirdo_direction"=3')) {
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.stairs.east"}]}`);
+                        }
+                        break;
+                }
             }
-        }
-        else if (blockId.includes("minecraft:") && blockId.includes("_slab")) {
-            mode = 0;
-            switch (mode) {
-                case 0:
-                    if (blockId.includes("double_slab")) {
-                        player.runCommand(`${title} 「type」を選択しました（double）`);
-                    }
-                    else if (blockStatesObject.includes('"minecraft:vertical_half"="bottom"')) {
-                        player.runCommand(`${title} 「type」を選択しました（bottom）`);
-                    }
-                    else if (blockStatesObject.includes('"minecraft:vertical_half"="top"')) {
-                        player.runCommand(`${title} 「type」を選択しました（top）`);
-                    }
-                    break;
+            else if (blockId.includes("_slab")) {
+                mode = 0;
+                switch (mode) {
+                    case 0:
+                        if (blockId.includes("double_slab")) {
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.slab.double"}]}`);
+                        }
+                        else if (blockStatesObject.includes('"minecraft:vertical_half"="bottom"')) {
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.slab.bottom"}]}`);
+                        }
+                        else if (blockStatesObject.includes('"minecraft:vertical_half"="top"')) {
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.slab.top"}]}`);
+                        }
+                        break;
+                }
+            }
+            else if (blockId.includes("trapdoor")) {
+                if (mode >= 2) {
+                    mode = 0
+                }
+                else {
+                    mode++
+                }
+                switch (mode) {
+                    case 0:
+                        if (blockStatesObject.includes('"direction"=0')) {
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.trapdoor.west"}]}`);
+                        }
+                        else if (blockStatesObject.includes('"direction"=1')) {
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.trapdoor.south"}]}`);
+                        }
+                        else if (blockStatesObject.includes('"direction"=2')) {
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.trapdoor.north"}]}`);
+                        }
+                        else if (blockStatesObject.includes('"direction"=3')) {
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.trapdoor.east"}]}`);
+                        }
+                    case 1:
+                        if (blockStatesObject.includes('"open_bit"=false')) {
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.trapdoor.open_false"}]}`);
+                        }
+                        else if (blockStatesObject.includes('"open_bit"=true')) {
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.trapdoor.open_true"}]}`);
+                        }
+                    case 2:
+                        if (blockStatesObject.includes('"upside_down_bit"=false')) {
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.trapdoor.down"}]}`);
+                        }
+                        else if (blockStatesObject.includes('"upside_down_bit"=true')) {
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.trapdoor.up"}]}`);
+                        }
+                }
+            }
+            else {
+                player.runCommand(`${title} {"rawtext":[{"text":"${blockId}"},{"translate":"pack.no.properties"}]}`);
             }
         }
         else {
-            player.runCommand(`${title} ${blockId}はプロパティを持っていません`);
+            player.runCommand(`${title} {"rawtext":[{"text":"${blockId}"},{"translate":"pack.no.properties"}]}`);
         }
         modeMap.set(player.id, mode);
     }

@@ -3,10 +3,10 @@ pack.description=Java版にあるデバッグ棒の再現です。
 pack.item.add:debug_stick.name=§dデバッグ棒
 pack.item.add:experiment.name=§d検証ツール
 
-## code
-pack.pick.stairs.bottom=「half」を選択しました（true）
+## 階段
+pack.pick.stairs.bottom=「half」を選択しました（bottom）
 pack.change.stairs.bottom=「half」をbottomに変更しました
-pack.pick.stairs.top=「half」を選択しました（false）
+pack.pick.stairs.top=「half」を選択しました（top）
 pack.change.stairs.top=「half」をtopに変更しました
 pack.pick.stairs.west=「facing」を選択しました（west）
 pack.change.stairs.west=「facing」をwestに変更しました
@@ -16,35 +16,42 @@ pack.pick.stairs.north=「facing」を選択しました（north）
 pack.change.stairs.north=「facing」をnorthに変更しました
 pack.pick.stairs.east=「facing」を選択しました（east）
 pack.change.stairs.east=「facing」をeastに変更しました
+## ハーフブロック
 pack.pick.slab.bottom=「type」を選択しました（bottom）
 pack.change.slab.bottom=「type」をbottomに変更しました
 pack.pick.slab.top=「type」を選択しました（top）
 pack.change.slab.top=「type」をtopに変更しました
 pack.pick.slab.double=「type」を選択しました（double）
 pack.change.slab.double=「type」をdoubleに変更しました
-
+## トラップドア
 pack.pick.trapdoor.west=「facing」を選択しました（west）
 pack.change.trapdoor.west=「facing」をwestに変更しました
-
 pack.pick.trapdoor.south=「facing」を選択しました（south）
 pack.change.trapdoor.south=「facing」をsouthに変更しました
-
 pack.pick.trapdoor.north=「facing」を選択しました（north）
 pack.change.trapdoor.north=「facing」をnorthに変更しました
-
 pack.pick.trapdoor.east=「facing」を選択しました（east）
 pack.change.trapdoor.east=「facing」をeastに変更しました
-
 pack.pick.trapdoor.open_false=「open」を選択しました（false）
 pack.change.trapdoor.open_false=「open」をfalseに変更しました
-
 pack.pick.trapdoor.open_true=「open」を選択しました（true）
 pack.change.trapdoor.open_true=「open」をtrueに変更しました
-
 pack.pick.trapdoor.down=「half」を選択しました（bottom）
 pack.change.trapdoor.down=「half」をbottomに変更しました
-
 pack.pick.trapdoor.up=「half」を選択しました（top）
 pack.change.trapdoor.up=「half」をtopに変更しました
+## フェンスゲート
+pack.pick.fence_gate.west=「facing」を選択しました（west）
+pack.change.fence_gate.west=「facing」をwestに変更しました
+pack.pick.fence_gate.south=「facing」を選択しました（south）
+pack.change.fence_gate.south=「facing」をsouthに変更しました
+pack.pick.fence_gate.north=「facing」を選択しました（north）
+pack.change.fence_gate.north=「facing」をnorthに変更しました
+pack.pick.fence_gate.east=「facing」を選択しました（east）
+pack.change.fence_gate.east=「facing」をeastに変更しました
+pack.pick.fence_gate.open_false=「open」を選択しました（false）
+pack.change.fence_gate.open_false=「open」をfalseに変更しました
+pack.pick.fence_gate.open_true=「open」を選択しました（true）
+pack.change.fence_gate.open_true=「open」をtrueに変更しました
 
 pack.no.properties=はプロパティを持っていません

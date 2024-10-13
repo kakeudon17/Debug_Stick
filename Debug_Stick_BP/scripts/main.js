@@ -14,7 +14,7 @@ world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
                     })
                     .join(",")}]`;
 
-                const mode = modeMap.get(source.id) || 0;
+                let mode = modeMap.get(source.id) || 0;
 
                 if (blockId.includes("minecraft:")) {
                     if (blockId.includes("_stairs")) {
@@ -22,7 +22,7 @@ world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
                             case 0:
                                 if (blockStatesObject.includes('"upside_down_bit"=true')) {
                                     const blockmode = blockStatesObject.replace("true", "false")
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${bit}`)
+                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
                                     source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.stairs.bottom"}]}`)
                                 }
                                 if (blockStatesObject.includes('"upside_down_bit"=false')) {
@@ -69,8 +69,8 @@ world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
                             source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.slab.top"}]}`)
                         }
                         else if (blockStatesObject.includes('"minecraft:vertical_half"="top"')) {
-                            const blockmode = blockId.replace("_slab", "_double_slab")
-                            source.runCommand(`setblock ${x} ${y} ${z} ${blockmode}`)
+                            const blockname = blockId.replace("_slab", "_double_slab")
+                            source.runCommand(`setblock ${x} ${y} ${z} ${blockname}`)
                             source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.slab.double"}]}`)
                         }
                     }
@@ -79,58 +79,96 @@ world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
                             case 0:
                                 if (blockStatesObject.includes('"direction"=0')) {
                                     const blockmode = blockStatesObject.replace('"direction"=0', '"direction"=1')
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockmode}`)
+                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
                                     source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.trapdoor.west"}]}`)
                                 }
                                 else if (blockStatesObject.includes('"direction"=1')) {
                                     const blockmode = blockStatesObject.replace('"direction"=1', '"direction"=2')
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockmode}`)
+                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
                                     source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.trapdoor.south"}]}`)
                                 }
                                 else if (blockStatesObject.includes('"direction"=2')) {
                                     const blockmode = blockStatesObject.replace('"direction"=2', '"direction"=3')
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockmode}`)
+                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
                                     source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.trapdoor.north"}]}`)
                                 }
                                 else if (blockStatesObject.includes('"direction"=3')) {
                                     const blockmode = blockStatesObject.replace('"direction"=3', '"direction"=0')
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockmode}`)
+                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
                                     source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.trapdoor.east"}]}`)
                                 }
                                 break;
                             case 1:
                                 if (blockStatesObject.includes('"open_bit"=false')) {
                                     const blockmode = blockStatesObject.replace('"open_bit"=false', '"open_bit"=true')
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockmode}`)
+                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
                                     source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.trapdoor.open_false"}]}`)
                                 }
                                 else if (blockStatesObject.includes('"open_bit"=true')) {
                                     const blockmode = blockStatesObject.replace('"open_bit"=true', '"open_bit"=false')
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockmode}`)
+                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
                                     source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.trapdoor.open_true"}]}`)
                                 }
                                 break;
                             case 2:
                                 if (blockStatesObject.includes('"upside_down_bit"=false')) {
                                     const blockmode = blockStatesObject.replace('"upside_down_bit"=false', '"upside_down_bit"=true')
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockmode}`)
+                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
                                     source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.trapdoor.up"}]}`)
                                 }
                                 else if (blockStatesObject.includes('"upside_down_bit"=true')) {
                                     const blockmode = blockStatesObject.replace('"upside_down_bit"=true', '"upside_down_bit"=false')
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockmode}`)
+                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
                                     source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.trapdoor.down"}]}`)
                                 }
                                 break;
                         }
                     }
+                    else if (blockId.includes("fence_gate")) {
+                        switch (mode) {
+                            case 0:
+                                if (blockStatesObject.includes('"direction"=0')) {
+                                    const blockmode = blockStatesObject.replace('"direction"=0', '"direction"=1')
+                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
+                                    source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.fence_gate.west"}]}`)
+                                }
+                                else if (blockStatesObject.includes('"direction"=1')) {
+                                    const blockmode = blockStatesObject.replace('"direction"=1', '"direction"=2')
+                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
+                                    source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.fence_gate.south"}]}`)
+                                }
+                                else if (blockStatesObject.includes('"direction"=2')) {
+                                    const blockmode = blockStatesObject.replace('"direction"=2', '"direction"=3')
+                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
+                                    source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.fence_gate.north"}]}`)
+                                }
+                                else if (blockStatesObject.includes('"direction"=3')) {
+                                    const blockmode = blockStatesObject.replace('"direction"=3', '"direction"=0')
+                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
+                                    source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.fence_gate.east"}]}`)
+                                }
+                                break;
+                            case 1:
+                                if (blockStatesObject.includes('"open_bit"=false')) {
+                                    const blockmode = blockStatesObject.replace('"open_bit"=false', '"open_bit"=true')
+                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
+                                    source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.fence_gate.open_true"}]}`)
+                                }
+                                else if (blockStatesObject.includes('"open_bit"=true')) {
+                                    const blockmode = blockStatesObject.replace('"open_bit"=true', '"open_bit"=false')
+                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
+                                    source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.fence_gate.open_false"}]}`)
+                                }
+                                break;
+                        }
+                    }
+                    else {
+                        source.runCommand(`${title} {"rawtext":[{"text":"${blockId}"},{"translate":"pack.no.properties"}]}`)
+                    }
                 }
                 else {
                     source.runCommand(`${title} {"rawtext":[{"text":"${blockId}"},{"translate":"pack.no.properties"}]}`)
                 }
-            }
-            else {
-                source.runCommand(`${title} {"rawtext":[{"text":"${blockId}"},{"translate":"pack.no.properties"}]}`)
             }
         }
     });
@@ -148,9 +186,9 @@ world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
                 })
                 .join(",")}]`;
 
-            const mode = modeMap.get(source.id) || 0;
+            let mode = modeMap.get(source.id) || 0;
 
-            source.sendMessage(`${blockId}\n${blockStatesObject}`)
+            source.sendMessage(`${blockId}\n${blockStatesObject}\n${mode}`)
         }
     });
 });

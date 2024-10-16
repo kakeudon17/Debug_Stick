@@ -2,7 +2,7 @@
     "format_version": "1.21.10",
     "minecraft:item": {
         "description": {
-            "identifier": "add:experiment",
+            "identifier": "mc:experiment",
             "menu_category": {
                 "category": "equipment"
             }
@@ -13,9 +13,9 @@
             "minecraft:icon": "stick",
             "minecraft:glint": true,
             "minecraft:display_name": {
-                "value": "pack.item.add:experiment.name"
+                "value": "pack.item.mc:experiment.name"
             },
-            "minecraft:custom_components": ["add:experiment"]
+            "minecraft:custom_components": ["mc:experiment"]
         }
     }
 }

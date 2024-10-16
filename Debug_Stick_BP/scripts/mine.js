@@ -7,7 +7,7 @@ export { modeMap, title }
 world.afterEvents.playerBreakBlock.subscribe(ev => {
     const itemStack = ev.itemStackAfterBreak;
 
-    if (itemStack && itemStack.typeId === "add:debug_stick") {
+    if (itemStack && itemStack.typeId === "mc:debug_stick") {
         const player = ev.player;
         const blockPermutation = ev.brokenBlockPermutation;
         const blockId = blockPermutation.type.id;
@@ -29,24 +29,24 @@ world.afterEvents.playerBreakBlock.subscribe(ev => {
                 switch (mode) {
                     case 0:
                         if (blockStatesObject.includes('"upside_down_bit"=true')) {
-                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.stairs.bottom"}]}`);
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.type.bottom"}]}`);
                         }
                         else if (blockStatesObject.includes('"upside_down_bit"=false')) {
-                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.stairs.top"}]}`);
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.type.top"}]}`);
                         }
                         break;
                     case 1:
                         if (blockStatesObject.includes('"weirdo_direction"=0')) {
-                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.stairs.east"}]}`);
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.facing.east"}]}`);
                         }
                         else if (blockStatesObject.includes('"weirdo_direction"=1')) {
-                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.stairs.west"}]}`);
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.facing.west"}]}`);
                         }
                         else if (blockStatesObject.includes('"weirdo_direction"=2')) {
-                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.stairs.south"}]}`);
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.facing.south"}]}`);
                         }
                         else if (blockStatesObject.includes('"weirdo_direction"=3')) {
-                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.stairs.north"}]}`);
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.facing.north"}]}`);
                         }
                         break;
                 }
@@ -56,13 +56,13 @@ world.afterEvents.playerBreakBlock.subscribe(ev => {
                 switch (mode) {
                     case 0:
                         if (blockId.includes("double_slab")) {
-                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.slab.double"}]}`);
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.type.double"}]}`);
                         }
                         else if (blockStatesObject.includes('"minecraft:vertical_half"="bottom"')) {
-                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.slab.bottom"}]}`);
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.type.bottom"}]}`);
                         }
                         else if (blockStatesObject.includes('"minecraft:vertical_half"="top"')) {
-                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.slab.top"}]}`);
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.type.top"}]}`);
                         }
                         break;
                 }
@@ -77,32 +77,32 @@ world.afterEvents.playerBreakBlock.subscribe(ev => {
                 switch (mode) {
                     case 0:
                         if (blockStatesObject.includes('"direction"=0')) {
-                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.trapdoor.east"}]}`);
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.facing.east"}]}`);
                         }
                         else if (blockStatesObject.includes('"direction"=1')) {
-                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.trapdoor.west"}]}`);
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.facing.west"}]}`);
                         }
                         else if (blockStatesObject.includes('"direction"=2')) {
-                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.trapdoor.south"}]}`);
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.facing.south"}]}`);
                         }
                         else if (blockStatesObject.includes('"direction"=3')) {
-                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.trapdoor.north"}]}`);
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.facing.north"}]}`);
                         }
                         break;
                     case 1:
                         if (blockStatesObject.includes('"open_bit"=false')) {
-                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.trapdoor.open_false"}]}`);
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.open.false"}]}`);
                         }
                         else if (blockStatesObject.includes('"open_bit"=true')) {
-                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.trapdoor.open_true"}]}`);
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.open.true"}]}`);
                         }
                         break;
                     case 2:
                         if (blockStatesObject.includes('"upside_down_bit"=false')) {
-                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.trapdoor.down"}]}`);
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.type.bottom"}]}`);
                         }
                         else if (blockStatesObject.includes('"upside_down_bit"=true')) {
-                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.trapdoor.up"}]}`);
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.type.top"}]}`);
                         }
                         break;
                 }
@@ -112,24 +112,24 @@ world.afterEvents.playerBreakBlock.subscribe(ev => {
                 switch (mode) {
                     case 0:
                         if (blockStatesObject.includes('"direction"=0')) {
-                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.fence_gate.east"}]}`);
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.facing.east"}]}`);
                         }
                         else if (blockStatesObject.includes('"direction"=1')) {
-                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.fence_gate.west"}]}`);
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.facing.west"}]}`);
                         }
                         else if (blockStatesObject.includes('"direction"=2')) {
-                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.fence_gate.south"}]}`);
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.facing.south"}]}`);
                         }
                         else if (blockStatesObject.includes('"direction"=3')) {
-                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.fence_gate.north"}]}`);
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.facing.north"}]}`);
                         }
                         break;
                     case 1:
                         if (blockStatesObject.includes('"open_bit"=false')) {
-                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.fence_gate.open_false"}]}`);
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.open.false"}]}`);
                         }
                         else if (blockStatesObject.includes('"open_bit"=true')) {
-                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.fence_gate.open_true"}]}`);
+                            player.runCommand(`${title} {"rawtext":[{"translate":"pack.pick.open.true"}]}`);
                         }
                 }
             }

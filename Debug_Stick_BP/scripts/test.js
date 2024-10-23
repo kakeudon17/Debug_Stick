@@ -1,12 +1,10 @@
 import { world } from "@minecraft/server";
-import { block_id_len } from "./block_id_len.json";
-
-let modeMap = new Map();
+import { Block_id_json } from "./block_ids";
 
 world.afterEvents.playerBreakBlock.subscribe(ev => {
     const itemStack = ev.itemStackAfterBreak;
 
-    if (itemStack && itemStack.typeId === "mc:debug_stick") {
+    if (itemStack && itemStack.typeId === "mc:test") {
         const player = ev.player;
         const blockPermutation = ev.brokenBlockPermutation;
         const blockId = blockPermutation.type.id;
@@ -17,13 +15,14 @@ world.afterEvents.playerBreakBlock.subscribe(ev => {
                 return `"${key}"=${(typeof value === 'boolean' || typeof value === 'number') ? value : `"${value}"`}`;
             })
             .join(', ');
+
         player.runCommand(`setblock ${x} ${y} ${z} ${blockId} [${blockStatesObject}]`)
 
-        console.log(Block_id_len(blockId))
+        if (Block_id_json["ID"][blockId]) {
+            player.runCommand(`titleraw @s actionbar {"rawtext":[{"text":"§a${blockId}"}]}`);
+        }
+        else {
+            player.runCommand(`titleraw @s actionbar {"rawtext":[{"text":"§c${blockId}"}]}`);
+        }
     }
 });
-
-function Block_id_len(block_id) {
-    console.log(block_id_len[block_id])
-    return block_id_len[block_id]
-}

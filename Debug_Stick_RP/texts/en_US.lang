@@ -1,4 +1,5 @@
 pack.name=Debug Stick RP
 pack.description=This is a recreation of the Debug Stick found in the Java version.
 pack.item.mc:debug_stick.name=§dDebug Stick
-pack.item.mc:experiment.name=§dValidation tools
+pack.item.mc:experiment.name=§dValidation tool
+pack.item.mc:test.name=§dtest tool

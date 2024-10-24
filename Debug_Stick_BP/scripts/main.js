@@ -1,5 +1,5 @@
 import { world } from "@minecraft/server";
-import { modeMap, title } from "./mine";
+import * as mine from "./mine";
 
 world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
     itemComponentRegistry.registerCustomComponent("mc:debug_stick", {
@@ -14,7 +14,7 @@ world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
                     })
                     .join(",")}]`;
 
-                let mode = modeMap.get(source.id) || 0;
+                let mode = mine.modeMap.get(source.id) || 0;
 
                 if (blockId.includes("minecraft:")) {
                     if (blockId.includes("_stairs")) {
@@ -186,7 +186,7 @@ world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
                 })
                 .join(",")}]`;
 
-            let mode = modeMap.get(source.id) || 0;
+            let mode = mine.modeMap.get(source.id) || 0;
 
             source.sendMessage(`${blockId}\n${blockStatesObject}`)
         }

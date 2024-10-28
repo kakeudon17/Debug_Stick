@@ -88,13 +88,39 @@ world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
                     }
                 }
                 else if (currentValue === "minecraft:vertical_half") {
-                    if (blockStates.includes('"minecraft:vertical_half"="bottom"')) {
-                        const blockmode = blockStates.replace('"minecraft:vertical_half"="bottom"', '"minecraft:vertical_half"="top"')
-                        source.runCommand(`setblock ${x} ${y} ${z} ${blockId} [${blockmode}]`)
+                    if (blockId.includes("double")) {
+                        if (blockId.includes("double_cut_copper_slab")) {
+                            const blockIdmode = blockId.replace("double_", "")
+                            const blockmode = blockStates.replace('"minecraft:vertical_half"="bottom"', '"minecraft:vertical_half"="top"')
+                            source.runCommand(`setblock ${x} ${y} ${z} ${blockIdmode} [${blockmode}]`)
+                        }
+                        else {
+                            const blockIdmode = blockId.replace("_double_slab", "_slab")
+                            const blockmode = blockStates.replace('"minecraft:vertical_half"="bottom"', '"minecraft:vertical_half"="top"')
+                            source.runCommand(`setblock ${x} ${y} ${z} ${blockIdmode} [${blockmode}]`)
+                        }
                     }
                     else if (blockStates.includes('"minecraft:vertical_half"="top"')) {
-                        const blockmode = blockStates.replace('"minecraft:vertical_half"="top"', '"minecraft:vertical_half"="bottom"')
-                        source.runCommand(`setblock ${x} ${y} ${z} ${blockId} [${blockmode}]`)
+                        if (blockId.includes("double_cut_copper_slab")) {
+                            const blockIdmode = blockId.replace("double_", "")
+                            const blockmode = blockStates.replace('"minecraft:vertical_half"="top"', '"minecraft:vertical_half"="bottom"')
+                            source.runCommand(`setblock ${x} ${y} ${z} ${blockIdmode} [${blockmode}]`)
+                        }
+                        else {
+                            const blockIdmode = blockId.replace("_double_slab", "_slab")
+                            const blockmode = blockStates.replace('"minecraft:vertical_half"="top"', '"minecraft:vertical_half"="bottom"')
+                            source.runCommand(`setblock ${x} ${y} ${z} ${blockIdmode} [${blockmode}]`)
+                        }
+                    }
+                    else if (blockStates.includes('"minecraft:vertical_half"="bottom"')) {
+                        if (blockId.includes("cut_copper_slab")) {
+                            const blockIdmode = blockId.replace("cut_copper_slab", "double_cut_copper_slab")
+                            source.runCommand(`setblock ${x} ${y} ${z} ${blockIdmode}`)
+                        }
+                        else {
+                            const blockIdmode = blockId.replace("_slab", "_double_slab")
+                            source.runCommand(`setblock ${x} ${y} ${z} ${blockIdmode}`)
+                        }
                     }
                 }
             }

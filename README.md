@@ -1,4 +1,4 @@
-## Debug Stick v1.0.0-alpha
+## Debug Stick v0.0.2-alpha
 
 これは、マインクラフト Java 版にあるデバッグ棒の再現です。
 

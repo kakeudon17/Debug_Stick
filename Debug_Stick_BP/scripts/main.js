@@ -1,194 +1,132 @@
 import { world } from "@minecraft/server";
-import * as mine from "./mine";
+import { Block_id_json } from "./block_ids";
+
+const title = "titleraw @s actionbar";
+let modeMap = new Map();
+
+world.afterEvents.playerBreakBlock.subscribe(ev => {
+    const itemStack = ev.itemStackAfterBreak;
+
+    if (itemStack && itemStack.typeId === "mc:debug_stick") {
+        const player = ev.player;
+        const blockPermutation = ev.brokenBlockPermutation;
+        const blockId = blockPermutation.type.id;
+        const { x, y, z } = ev.block.location;
+        const blockAllStates = blockPermutation.getAllStates();
+        const blockStates = Object.entries(blockAllStates)
+            .map(([key, value]) => {
+                return `"${key}"=${(typeof value === 'boolean' || typeof value === 'number') ? value : `"${value}"`}`;
+            })
+            .join(', ');
+
+        player.runCommand(`setblock ${x} ${y} ${z} ${blockId} [${blockStates}]`);
+
+        if (Block_id_json["ID"][blockId]) {
+            let blockModes = modeMap.get(player.id) || new Map();
+            let mode = blockModes.get(blockId) || 0;
+            const maxMode = Block_id_json["ID"][blockId].length - 1;
+
+            mode = (mode + 1) > maxMode ? 0 : mode + 1;
+            blockModes.set(blockId, mode);
+            modeMap.set(player.id, blockModes);
+
+            const currentValue = Block_id_json["ID"][blockId][mode];
+            player.runCommand(`${title} {"rawtext":[{"text":"§a${blockId}\n${currentValue}"}]}`);
+        } else {
+            player.runCommand(`${title} {"rawtext":[{"text":"§c${blockId}"}]}`);
+        }
+    }
+});
 
 world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
     itemComponentRegistry.registerCustomComponent("mc:debug_stick", {
-        onUseOn({ source, block }) {
-            if (block) {
-                const { x, y, z } = block.location;
-                const blockId = block.typeId;
-                const blockStates = block.permutation.getAllStates();
-                const blockStatesObject = `[${Object.entries(blockStates)
-                    .map(([key, value]) => {
-                        return `"${key}"=${(typeof value === 'boolean' || typeof value === 'number') ? value : `"${value}"`}`;
-                    })
-                    .join(",")}]`;
-
-                let mode = mine.modeMap.get(source.id) || 0;
-
-                if (blockId.includes("minecraft:")) {
-                    if (blockId.includes("_stairs")) {
-                        switch (mode) {
-                            case 0:
-                                if (blockStatesObject.includes('"upside_down_bit"=true')) {
-                                    const blockmode = blockStatesObject.replace("true", "false")
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
-                                    source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.half.bottom"}]}`)
-                                }
-                                if (blockStatesObject.includes('"upside_down_bit"=false')) {
-                                    const blockmode = blockStatesObject.replace("false", "true")
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
-                                    source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.half.top"}]}`)
-                                }
-                                break;
-                            case 1:
-                                if (blockStatesObject.includes('"weirdo_direction"=0')) {
-                                    const blockmode = blockStatesObject.replace('"weirdo_direction"=0', '"weirdo_direction"=1')
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
-                                    source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.facing.west"}]}`)
-                                }
-                                if (blockStatesObject.includes('"weirdo_direction"=1')) {
-                                    const blockmode = blockStatesObject.replace('"weirdo_direction"=1', '"weirdo_direction"=2')
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
-                                    source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.facing.south"}]}`)
-                                }
-                                if (blockStatesObject.includes('"weirdo_direction"=2')) {
-                                    const blockmode = blockStatesObject.replace('"weirdo_direction"=2', '"weirdo_direction"=3')
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
-                                    source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.facing.north"}]}`)
-                                }
-                                if (blockStatesObject.includes('"weirdo_direction"=3')) {
-                                    const blockmode = blockStatesObject.replace('"weirdo_direction"=3', '"weirdo_direction"=0')
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
-                                    source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.facing.east"}]}`)
-                                }
-                                break;
-                        }
-                    }
-                    else if (blockId.includes("_slab")) {
-                        if (blockId.includes("double_slab")) {
-                            const blockname = blockId.replace("_double_slab", "_slab")
-                            const blockmode = blockStatesObject.replace('"top"', '"bottom"')
-                            source.runCommand(`setblock ${x} ${y} ${z} ${blockname} ${blockmode}`)
-                            source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.type.bottom"}]}`)
-                        }
-                        else if (blockStatesObject.includes('"minecraft:vertical_half"="bottom"')) {
-                            const blockname = blockId.replace("_double_slab", "_slab")
-                            const blockmode = blockStatesObject.replace('"bottom"', '"top"')
-                            source.runCommand(`setblock ${x} ${y} ${z} ${blockname} ${blockmode}`)
-                            source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.type.top"}]}`)
-                        }
-                        else if (blockStatesObject.includes('"minecraft:vertical_half"="top"')) {
-                            const blockname = blockId.replace("_slab", "_double_slab")
-                            source.runCommand(`setblock ${x} ${y} ${z} ${blockname}`)
-                            source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.type.double"}]}`)
-                        }
-                    }
-                    else if (blockId.includes("trapdoor")) {
-                        switch (mode) {
-                            case 0:
-                                if (blockStatesObject.includes('"direction"=0')) {
-                                    const blockmode = blockStatesObject.replace('"direction"=0', '"direction"=1')
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
-                                    source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.facing.west"}]}`)
-                                }
-                                else if (blockStatesObject.includes('"direction"=1')) {
-                                    const blockmode = blockStatesObject.replace('"direction"=1', '"direction"=2')
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
-                                    source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.facing.south"}]}`)
-                                }
-                                else if (blockStatesObject.includes('"direction"=2')) {
-                                    const blockmode = blockStatesObject.replace('"direction"=2', '"direction"=3')
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
-                                    source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.facing.north"}]}`)
-                                }
-                                else if (blockStatesObject.includes('"direction"=3')) {
-                                    const blockmode = blockStatesObject.replace('"direction"=3', '"direction"=0')
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
-                                    source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.facing.east"}]}`)
-                                }
-                                break;
-                            case 1:
-                                if (blockStatesObject.includes('"open_bit"=false')) {
-                                    const blockmode = blockStatesObject.replace('"open_bit"=false', '"open_bit"=true')
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
-                                    source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.open.false"}]}`)
-                                }
-                                else if (blockStatesObject.includes('"open_bit"=true')) {
-                                    const blockmode = blockStatesObject.replace('"open_bit"=true', '"open_bit"=false')
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
-                                    source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.open.true"}]}`)
-                                }
-                                break;
-                            case 2:
-                                if (blockStatesObject.includes('"upside_down_bit"=false')) {
-                                    const blockmode = blockStatesObject.replace('"upside_down_bit"=false', '"upside_down_bit"=true')
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
-                                    source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.half.top"}]}`)
-                                }
-                                else if (blockStatesObject.includes('"upside_down_bit"=true')) {
-                                    const blockmode = blockStatesObject.replace('"upside_down_bit"=true', '"upside_down_bit"=false')
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
-                                    source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.half.bottom"}]}`)
-                                }
-                                break;
-                        }
-                    }
-                    else if (blockId.includes("fence_gate")) {
-                        switch (mode) {
-                            case 0:
-                                if (blockStatesObject.includes('"direction"=0')) {
-                                    const blockmode = blockStatesObject.replace('"direction"=0', '"direction"=1')
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
-                                    source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.facing.west"}]}`)
-                                }
-                                else if (blockStatesObject.includes('"direction"=1')) {
-                                    const blockmode = blockStatesObject.replace('"direction"=1', '"direction"=2')
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
-                                    source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.facing.south"}]}`)
-                                }
-                                else if (blockStatesObject.includes('"direction"=2')) {
-                                    const blockmode = blockStatesObject.replace('"direction"=2', '"direction"=3')
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
-                                    source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.facing.north"}]}`)
-                                }
-                                else if (blockStatesObject.includes('"direction"=3')) {
-                                    const blockmode = blockStatesObject.replace('"direction"=3', '"direction"=0')
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
-                                    source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.facing.east"}]}`)
-                                }
-                                break;
-                            case 1:
-                                if (blockStatesObject.includes('"open_bit"=false')) {
-                                    const blockmode = blockStatesObject.replace('"open_bit"=false', '"open_bit"=true')
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
-                                    source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.open.true"}]}`)
-                                }
-                                else if (blockStatesObject.includes('"open_bit"=true')) {
-                                    const blockmode = blockStatesObject.replace('"open_bit"=true', '"open_bit"=false')
-                                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} ${blockmode}`)
-                                    source.runCommand(`${title} {"rawtext":[{"translate":"pack.change.open.false"}]}`)
-                                }
-                                break;
-                        }
-                    }
-                    else {
-                        source.runCommand(`${title} {"rawtext":[{"text":"${blockId}"},{"translate":"pack.no.properties"}]}`)
-                    }
-                }
-                else {
-                    source.runCommand(`${title} {"rawtext":[{"text":"${blockId}"},{"translate":"pack.no.properties"}]}`)
-                }
-            }
-        }
-    });
-});
-
-
-world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
-    itemComponentRegistry.registerCustomComponent("mc:experiment", {
-        onUseOn({ source, block }) {
-            const blockId = block.typeId;
-            const blockStates = block.permutation.getAllStates()
-            const blockStatesObject = `[${Object.entries(blockStates)
+        onUseOn({ block, source }) {
+            const blockId = block.type.id;
+            const { x, y, z } = block.location;
+            const blockAllStates = block.permutation.getAllStates();
+            const blockStates = Object.entries(blockAllStates)
                 .map(([key, value]) => {
                     return `"${key}"=${(typeof value === 'boolean' || typeof value === 'number') ? value : `"${value}"`}`;
                 })
-                .join(",")}]`;
+                .join(', ');
+            let blockModes = modeMap.get(source.id) || new Map();
 
-            let mode = mine.modeMap.get(source.id) || 0;
-
-            source.sendMessage(`${blockId}\n${blockStatesObject}`)
+            if (Block_id_json["ID"][blockId] && !blockModes.has(blockId)) {
+                blockModes.set(blockId, 0);
+                modeMap.set(source.id, blockModes);
+            }
+            if (blockModes.has(blockId)) {
+                const mode = blockModes.get(blockId);
+                const currentValue = Block_id_json["ID"][blockId][mode];
+                source.runCommand(`${title} {"rawtext":[{"text":"${blockId}\n${currentValue}"}]}`);
+                if (currentValue === "weirdo_direction") {
+                    if (blockStates.includes('"weirdo_direction"=0')) {
+                        const blockmode = blockStates.replace('"weirdo_direction"=0', '"weirdo_direction"=1')
+                        source.runCommand(`setblock ${x} ${y} ${z} ${blockId} [${blockmode}]`)
+                    }
+                    else if (blockStates.includes('"weirdo_direction"=1')) {
+                        const blockmode = blockStates.replace('"weirdo_direction"=1', '"weirdo_direction"=2')
+                        source.runCommand(`setblock ${x} ${y} ${z} ${blockId} [${blockmode}]`)
+                    }
+                    else if (blockStates.includes('"weirdo_direction"=2')) {
+                        const blockmode = blockStates.replace('"weirdo_direction"=2', '"weirdo_direction"=3')
+                        source.runCommand(`setblock ${x} ${y} ${z} ${blockId} [${blockmode}]`)
+                    }
+                    else if (blockStates.includes('"weirdo_direction"=3')) {
+                        const blockmode = blockStates.replace('"weirdo_direction"=3', '"weirdo_direction"=0')
+                        source.runCommand(`setblock ${x} ${y} ${z} ${blockId} [${blockmode}]`)
+                    }
+                }
+                else if (currentValue === "upside_down_bit") {
+                    if (blockStates.includes('"upside_down_bit"=false')) {
+                        const blockmode = blockStates.replace('"upside_down_bit"=false', '"upside_down_bit"=true')
+                        source.runCommand(`setblock ${x} ${y} ${z} ${blockId} [${blockmode}]`)
+                    }
+                    else if (blockStates.includes('"upside_down_bit"=true')) {
+                        const blockmode = blockStates.replace('"upside_down_bit"=true', '"upside_down_bit"=false')
+                        source.runCommand(`setblock ${x} ${y} ${z} ${blockId} [${blockmode}]`)
+                    }
+                }
+                else if (currentValue === "minecraft:vertical_half") {
+                    if (blockId.includes("double")) {
+                        if (blockId.includes("double_cut_copper_slab")) {
+                            const blockIdmode = blockId.replace("double_", "")
+                            const blockmode = blockStates.replace('"minecraft:vertical_half"="bottom"', '"minecraft:vertical_half"="top"')
+                            source.runCommand(`setblock ${x} ${y} ${z} ${blockIdmode} [${blockmode}]`)
+                        }
+                        else {
+                            const blockIdmode = blockId.replace("_double_slab", "_slab")
+                            const blockmode = blockStates.replace('"minecraft:vertical_half"="bottom"', '"minecraft:vertical_half"="top"')
+                            source.runCommand(`setblock ${x} ${y} ${z} ${blockIdmode} [${blockmode}]`)
+                        }
+                    }
+                    else if (blockStates.includes('"minecraft:vertical_half"="top"')) {
+                        if (blockId.includes("double_cut_copper_slab")) {
+                            const blockIdmode = blockId.replace("double_", "")
+                            const blockmode = blockStates.replace('"minecraft:vertical_half"="top"', '"minecraft:vertical_half"="bottom"')
+                            source.runCommand(`setblock ${x} ${y} ${z} ${blockIdmode} [${blockmode}]`)
+                        }
+                        else {
+                            const blockIdmode = blockId.replace("_double_slab", "_slab")
+                            const blockmode = blockStates.replace('"minecraft:vertical_half"="top"', '"minecraft:vertical_half"="bottom"')
+                            source.runCommand(`setblock ${x} ${y} ${z} ${blockIdmode} [${blockmode}]`)
+                        }
+                    }
+                    else if (blockStates.includes('"minecraft:vertical_half"="bottom"')) {
+                        if (blockId.includes("cut_copper_slab")) {
+                            const blockIdmode = blockId.replace("cut_copper_slab", "double_cut_copper_slab")
+                            source.runCommand(`setblock ${x} ${y} ${z} ${blockIdmode}`)
+                        }
+                        else {
+                            const blockIdmode = blockId.replace("_slab", "_double_slab")
+                            source.runCommand(`setblock ${x} ${y} ${z} ${blockIdmode}`)
+                        }
+                    }
+                }
+            }
+            else {
+                source.runCommand(`${title} {"rawtext":[{"text":"${blockId}"},{"translate":"pack.no.properties"}]}`)
+            }
         }
-    });
+    })
 });

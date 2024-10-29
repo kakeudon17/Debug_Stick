@@ -1,5 +1,5 @@
-pack.name=デバッグ棒 RP
-pack.description=Java版にあるデバッグ棒の再現です。
+pack.name=Debug_Stick RP v1.21.41
+pack.description=このアドオンは、Java版にあるデバッグ棒の再現です。
 pack.item.mc:debug_stick.name=§dデバッグ棒
 pack.item.mc:experiment.name=§d検証ツール
 pack.item.mc:test.name=§dテストツール

@@ -59,7 +59,25 @@ world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
                 const mode = blockModes.get(blockId);
                 const currentValue = Block_id_json["ID"][blockId][mode];
                 source.runCommand(`${title} {"rawtext":[{"text":"${blockId}\n${currentValue}"}]}`);
-                if (currentValue === "weirdo_direction") {
+                if (currentValue === "direction") {
+                    if (blockStates.includes('"direction"=0')) {
+                        const blockmode = blockStates.replace('"direction"=0', '"direction"=1')
+                        source.runCommand(`setblock ${x} ${y} ${z} ${blockId} [${blockmode}]`)
+                    }
+                    else if (blockStates.includes('"direction"=1')) {
+                        const blockmode = blockStates.replace('"direction"=1', '"direction"=2')
+                        source.runCommand(`setblock ${x} ${y} ${z} ${blockId} [${blockmode}]`)
+                    }
+                    else if (blockStates.includes('"direction"=2')) {
+                        const blockmode = blockStates.replace('"direction"=2', '"direction"=3')
+                        source.runCommand(`setblock ${x} ${y} ${z} ${blockId} [${blockmode}]`)
+                    }
+                    else if (blockStates.includes('"direction"=3')) {
+                        const blockmode = blockStates.replace('"direction"=3', '"direction"=0')
+                        source.runCommand(`setblock ${x} ${y} ${z} ${blockId} [${blockmode}]`)
+                    }
+                }
+                else if (currentValue === "weirdo_direction") {
                     if (blockStates.includes('"weirdo_direction"=0')) {
                         const blockmode = blockStates.replace('"weirdo_direction"=0', '"weirdo_direction"=1')
                         source.runCommand(`setblock ${x} ${y} ${z} ${blockId} [${blockmode}]`)
@@ -84,6 +102,30 @@ world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
                     }
                     else if (blockStates.includes('"upside_down_bit"=true')) {
                         const blockmode = blockStates.replace('"upside_down_bit"=true', '"upside_down_bit"=false')
+                        source.runCommand(`setblock ${x} ${y} ${z} ${blockId} [${blockmode}]`)
+                    }
+                }
+                else if (currentValue === "open_bit") {
+                    if (blockStates.includes('"open_bit"=false')) {
+                        const blockmode = blockStates.replace('"open_bit"=false', '"open_bit"=true')
+                        source.runCommand(`setblock ${x} ${y} ${z} ${blockId} [${blockmode}]`)
+                    }
+                    if (blockStates.includes('"open_bit"=true')) {
+                        const blockmode = blockStates.replace('"open_bit"=true', '"open_bit"=false')
+                        source.runCommand(`setblock ${x} ${y} ${z} ${blockId} [${blockmode}]`)
+                    }
+                }
+                else if (currentValue === "pillar_axis") {
+                    if (blockStates.includes('"pillar_axis"="x"')) {
+                        const blockmode = blockStates.replace('"pillar_axis"="x"', '"pillar_axis"="y"')
+                        source.runCommand(`setblock ${x} ${y} ${z} ${blockId} [${blockmode}]`)
+                    }
+                    else if (blockStates.includes('"pillar_axis"="y"')) {
+                        const blockmode = blockStates.replace('"pillar_axis"="y"', '"pillar_axis"="z"')
+                        source.runCommand(`setblock ${x} ${y} ${z} ${blockId} [${blockmode}]`)
+                    }
+                    else if (blockStates.includes('"pillar_axis"="z"')) {
+                        const blockmode = blockStates.replace('"pillar_axis"="z"', '"pillar_axis"="x"')
                         source.runCommand(`setblock ${x} ${y} ${z} ${blockId} [${blockmode}]`)
                     }
                 }

@@ -11,7 +11,7 @@
         {
             "type": "script",
             "uuid": "57aa1b70-c8cb-42f9-b629-ea0fc68b9b71",
-            "entry": "scripts/index.js",
+            "entry": "scripts/main.js",
             "version": [1, 0, 0]
         }
     ],

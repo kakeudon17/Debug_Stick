@@ -327,7 +327,7 @@ export const Block_id_json = {
         "minecraft:lectern": ["powered_bit", "minecraft:cardinal_direction"],
         "minecraft:chiseled_bookshelf": ["direction", "books_stored"],
         // ツール系
-        "minecraft:anvil": ["damage", "minecraft:cardinal_direction"],
+        "minecraft:anvil": ["minecraft:cardinal_direction"],
         "minecraft:grindstone": ["direction", "attachment"],
         "minecraft:stonecutter_block": ["minecraft:cardinal_direction"],
         "minecraft:bell": ["direction", "toggle_bit", "attachment"],
@@ -477,7 +477,7 @@ export const Block_id_json = {
         "minecraft:suspicious_gravel": ["hanging", "brushed_progress"],
         // 飾り壷
         "minecraft:decorated_pot": ["drection"],
-        // 種
+        // 植物
         "minecraft:wheat": ["growth"],
         "minecraft:pumpkin_stem": ["facing_direction", "growth"],
         "minecraft:melon_stem": ["facing_direction", "growth"],
@@ -489,5 +489,7 @@ export const Block_id_json = {
         "minecraft:cocoa": ["age", "direction"],
         "minecraft:torchflower_crop": ["growth"],
         "minecraft:pitcher_crop": ["upper_block_bit", "growth"],
+        "minecraft:cactus": ["age"],
+        "minecraft:chorus_flower": ["age"],
     }
 }

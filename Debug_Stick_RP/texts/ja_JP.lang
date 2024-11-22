@@ -4,25 +4,5 @@ pack.item.mc:debug_stick.name=§dデバッグ棒§r
 
 pack.pick.half.bottom=「half」を選択しました（bottom）
 pack.change.half.bottom=「half」をbottomに変更しました
-pack.pick.half.top=「half」を選択しました（top）
-pack.change.half.top=「half」をtopに変更しました
-pack.pick.facing.west=「facing」を選択しました（west）
-pack.change.facing.west=「facing」をwestに変更しました
-pack.pick.facing.south=「facing」を選択しました（south）
-pack.change.facing.south=「facing」をsouthに変更しました
-pack.pick.facing.north=「facing」を選択しました（north）
-pack.change.facing.north=「facing」をnorthに変更しました
-pack.pick.facing.east=「facing」を選択しました（east）
-pack.change.facing.east=「facing」をeastに変更しました
-pack.pick.type.bottom=「type」を選択しました（bottom）
-pack.change.type.bottom=「type」をbottomに変更しました
-pack.pick.type.top=「type」を選択しました（top）
-pack.change.type.top=「type」をtopに変更しました
-pack.pick.type.double=「type」を選択しました（double）
-pack.change.type.double=「type」をdoubleに変更しました
-pack.pick.open.false=「open」を選択しました（false）
-pack.change.open.false=「open」をfalseに変更しました
-pack.pick.open.true=「open」を選択しました（true）
-pack.change.open.true=「open」をtrueに変更しました
 
 pack.no.properties=はプロパティを持っていません

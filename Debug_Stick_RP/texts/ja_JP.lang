@@ -1,8 +1,4 @@
 pack.name=Debug_Stick RP v1.0.0-alpha
-pack.description=このアドオンは、Java版にあるデバッグ棒の再現です。
+pack.description=このアドオンは、Java版にあるデバッグ棒を統合版用に再現したものです。
 pack.item.mc:debug_stick.name=§dデバッグ棒§r
-
-pack.pick.half.bottom=「half」を選択しました（bottom）
-pack.change.half.bottom=「half」をbottomに変更しました
-
 pack.no.properties=はプロパティを持っていません

@@ -1,4 +1,6 @@
 pack.name=Debug_Stick RP v1.0.0-alpha
 pack.description=このアドオンは、Java版にあるデバッグ棒を統合版用に再現したものです。
 pack.item.mc:debug_stick.name=§dデバッグ棒§r
-pack.no.properties=はプロパティを持っていません
+pack.steate.mode=「%1」を選択しました（%2）
+pack.state.change=「%1」を%2に変更しました
+pack.no.properties=%1はプロパティを持っていません

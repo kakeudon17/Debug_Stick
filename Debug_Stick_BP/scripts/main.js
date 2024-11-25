@@ -1,4 +1,4 @@
-import { world } from "@minecraft/server";
+import { world, system } from "@minecraft/server";
 import { excludedStates, blockSpecificExclusions } from "./excluded_states.js";
 import { states_result } from "./block_states.js";
 
@@ -17,25 +17,20 @@ function formatBlockState(key, value) {
     return `"${key}"=${formattedValue}`;
 }
 
-world.afterEvents.playerBreakBlock.subscribe(ev => {
-    const itemStack = ev.itemStackAfterBreak;
+world.beforeEvents.playerBreakBlock.subscribe(ev => {
+    const itemId = ev.itemStack?.type?.id;
+    if (itemId == "mc:debug_stick") {
+        ev.cancel = true;
 
-    if (itemStack && itemStack.typeId === "mc:debug_stick") {
         const player = ev.player;
-        const blockPermutation = ev.brokenBlockPermutation;
-        const blockId = blockPermutation.type.id;
-        const { x, y, z } = ev.block.location;
-        const blockAllStates = blockPermutation.getAllStates();
-        const blockStates = getBlockStatesString(blockAllStates);
-
-        player.runCommand(`setblock ${x} ${y} ${z} ${blockId} [${blockStates}]`);
-
+        const blockId = ev.block.type.id;
+        const blockAllStates = ev.block.permutation.getAllStates();
         const specificExclusions = blockSpecificExclusions[blockId] || [];
         const filteredStates = Object.entries(blockAllStates)
             .filter(([key]) => !excludedStates.includes(key) && !specificExclusions.includes(key));
 
         if (filteredStates.length === 0) {
-            player.runCommand(`${TITLE} {"rawtext":[{"text":"${blockId}"},{"translate":"pack.no.properties"}]}`);
+            player.runCommandAsync(`${TITLE} {"rawtext":[{"translate":"pack.no.properties","with":["${blockId}"]}]}`);
         }
         else {
             let blockModes = modeMap.get(player.id) || new Map();
@@ -51,14 +46,15 @@ world.afterEvents.playerBreakBlock.subscribe(ev => {
             modeMap.set(player.id, blockModes);
             const currentState = states[mode];
             const currentValue = blockAllStates[currentState];
-            player.runCommand(`${TITLE} {"rawtext":[{"text":"｢ ${currentState} ｣ を選択しました ( ${currentValue} )"}]}`);
+            player.runCommandAsync(`${TITLE} {"rawtext":[{"translate":"pack.steate.mode","with":["${currentState}","${currentValue}"]}]}`);
         }
     }
 });
 
+
 world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
     itemComponentRegistry.registerCustomComponent("mc:debug_stick", {
-        onUseOn({ block, source }) {
+        onUseOn: ({ source, block }) => {
             const blockId = block.type.id;
             const { x, y, z } = block.location;
             const blockAllStates = block.permutation.getAllStates();
@@ -99,12 +95,33 @@ world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
 
                     let newStates = { ...blockAllStates, [currentState]: nextValue };
                     const newStatesString = getBlockStatesString(newStates);
-                    source.runCommand(`setblock ${x} ${y} ${z} ${blockId} [${newStatesString}]`);
-                    source.runCommand(`${TITLE} {"rawtext":[{"text":"｢ ${currentState} ｣ を ${nextValue} に変更しました"}]}`);
+                    source.runCommandAsync(`setblock ${x} ${y} ${z} ${blockId} [${newStatesString}]`);
+                    const container = block.getComponent("inventory")?.container;
+                    if (container) {
+                        const items = [];
+                        for (let i = 0; i < container.size; i++) {
+                            const item = container.getItem(i);
+                            if (item) {
+                                items.push({ slot: i, item: item });
+                            }
+                        }
+                        system.runTimeout(() => {
+                            const block = world.getDimension(source.dimension.id).getBlock({ x, y, z });
+                            if (block) {
+                                const newContainer = block.getComponent("inventory")?.container;
+                                if (newContainer) {
+                                    items.forEach(({ slot, item }) => {
+                                        newContainer.setItem(slot, item);
+                                    });
+                                }
+                            }
+                        }, 1);
+                    }
+                    source.runCommand(`${TITLE} {"rawtext":[{"translate":"pack.state.change","with":["${currentState}","${nextValue}"]}]}`);
                 }
             } else {
-                source.runCommand(`${TITLE} {"rawtext":[{"text":"${blockId}"},{"translate":"pack.no.properties"}]}`);
+                source.runCommand(`${TITLE} {"rawtext":[{"translate":"pack.no.properties","with":["${blockId}"]}]}`);
             }
         }
-    });
+    })
 });

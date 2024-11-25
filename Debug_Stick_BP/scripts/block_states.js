@@ -59,6 +59,7 @@ export const states_result = {
         "repeater_delay": [0, 1, 2, 3],
         "deprecated": [0, 1, 2, 3],
         "facing_direction": [0, 1, 2, 3, 4, 5],
+        "ground_sign_direction": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
         // その他
         "wall_connection_type_east": ["none", "short", "tall"],
         "wall_connection_type_north": ["none", "short", "tall"],

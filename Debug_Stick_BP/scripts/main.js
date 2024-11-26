@@ -17,12 +17,22 @@ function formatBlockState(key, value) {
     return `"${key}"=${formattedValue}`;
 }
 
+// ゲームモードチェック
+function isCreativeMode(player) {
+    return player.matches({ gameMode: "creative" });
+}
+
 world.beforeEvents.playerBreakBlock.subscribe(ev => {
     const itemId = ev.itemStack?.type?.id;
     if (itemId == "mc:debug_stick") {
         ev.cancel = true;
 
         const player = ev.player;
+        // 権限チェック
+        if (!player.hasTag("op") || !isCreativeMode(player)) {
+            return;
+        }
+
         const blockId = ev.block.type.id;
         const blockAllStates = ev.block.permutation.getAllStates();
         const specificExclusions = blockSpecificExclusions[blockId] || [];
@@ -55,6 +65,10 @@ world.beforeEvents.playerBreakBlock.subscribe(ev => {
 world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
     itemComponentRegistry.registerCustomComponent("mc:debug_stick", {
         onUseOn: ({ source, block }) => {
+            // 権限チェック
+            if (!source.hasTag("op") || !isCreativeMode(source)) {
+                return;
+            }
             const blockId = block.type.id;
             const { x, y, z } = block.location;
             const blockAllStates = block.permutation.getAllStates();

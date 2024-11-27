@@ -1,9 +1,24 @@
 export const states_result = {
     // 個別
     "minecraft:ladder": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:wall_banner": { "facing_direction": [2, 3, 4, 5], },
+    // 壁看板
+    "minecraft:wall_sign": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:spruce_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:birch_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:jungle_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:acacia_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:darkoak_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:mangrove_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:cherry_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:bamboo_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:crimson_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:warped_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+    // レール
     "minecraft:golden_rail": { "rail_direction": [0, 1, 2, 3, 4, 5] },
     "minecraft:detector_rail": { "rail_direction": [0, 1, 2, 3, 4, 5] },
     "minecraft:activator_rail": { "rail_direction": [0, 1, 2, 3, 4, 5] },
+    // 植物
     "minecraft:cocoa": { "age": [0, 1, 2] },
     "minecraft:nether_wart": { "age": [0, 1, 2, 3] },
     "minecraft:chorus_flower": { "age": [0, 1, 2, 3, 4, 5] },
@@ -102,6 +117,7 @@ export const states_result = {
         "pillar_axis": ["x", "y", "z"],
         "bamboo_stalk_thickness": ["thin", "thick"],
         "cauldron_liquid": ["water", "lava", "powder_snow"],
+        "sea_grass_type": ["default", "double_bot", "double_top"],
         "bamboo_leaf_size": ["no_leaves", "small_leaves", "large_leaves"],
         "attachment": ["standing", "hanging", "side", "multiple"],
         "damage": ["undamaged", "slightly_damaged", "very_damaged"],

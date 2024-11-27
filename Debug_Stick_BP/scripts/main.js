@@ -5,43 +5,84 @@ import { states_result } from "./block_states.js";
 const TITLE = "titleraw @s actionbar";
 let modeMap = new Map();
 
-function getBlockStatesString(blockAllStates) {
-    return Object.entries(blockAllStates)
-        .map(([key, value]) => formatBlockState(key, value))
-        .join(', ');
-}
 function formatBlockState(key, value) {
     const formattedValue = typeof value === 'boolean' || typeof value === 'number'
         ? value
         : `"${value}"`;
     return `"${key}"=${formattedValue}`;
 }
+function getBlockStatesString(blockAllStates) {
+    return Object.entries(blockAllStates)
+        .map(([key, value]) => formatBlockState(key, value))
+        .join(', ');
+}
 
 // ゲームモードチェック
 function isCreativeMode(player) {
     return player.matches({ gameMode: "creative" });
+}
+// 権限チェック
+function checkPermissions(player) {
+    return player.hasTag("op") && isCreativeMode(player);
 }
 
 world.beforeEvents.playerBreakBlock.subscribe(ev => {
     const itemId = ev.itemStack?.type?.id;
     if (itemId == "mc:debug_stick") {
         ev.cancel = true;
-
         const player = ev.player;
-        // 権限チェック
-        if (!player.hasTag("op") || !isCreativeMode(player)) {
-            return;
-        }
-
         const blockId = ev.block.type.id;
         const blockAllStates = ev.block.permutation.getAllStates();
         const specificExclusions = blockSpecificExclusions[blockId] || [];
         const filteredStates = Object.entries(blockAllStates)
             .filter(([key]) => !excludedStates.includes(key) && !specificExclusions.includes(key));
 
-        if (filteredStates.length === 0) {
-            player.runCommandAsync(`${TITLE} {"rawtext":[{"translate":"pack.no.properties","with":["${blockId}"]}]}`);
+        // ブロックの内容を保存
+        const { x, y, z } = ev.block.location;
+        const container = ev.block.getComponent("inventory")?.container;
+        const items = [];
+        if (container) {
+            for (let i = 0; i < container.size; i++) {
+                const item = container.getItem(i);
+                if (item) {
+                    items.push({ slot: i, item: item });
+                }
+            }
         }
+
+        // ステータスを変更を2回して元に戻す
+        const states = filteredStates.map(([key]) => key);
+        const currentState = states[0];
+        const currentValue = blockAllStates[currentState];
+        const stateValues = states_result[blockId]?.[currentState] || states_result.normal[currentState];
+        if (!stateValues) {
+            if (!checkPermissions(player)) return;
+            player.runCommandAsync(`${TITLE} {"rawtext":[{"translate":"pack.no.properties","with":["${blockId}"]}]}`);
+            return;
+        }
+        const nextValue = stateValues[(stateValues.indexOf(currentValue) + 1) % stateValues.length];
+        const newStates = { ...blockAllStates, [currentState]: nextValue };
+        const newStatesString = getBlockStatesString(newStates);
+        player.runCommandAsync(`setblock ${x} ${y} ${z} ${blockId} [${newStatesString}]`);
+        player.runCommandAsync(`setblock ${x} ${y} ${z} ${blockId} [${getBlockStatesString(blockAllStates)}]`);
+
+        if (container) {
+            system.runTimeout(() => {
+                const block = world.getDimension(player.dimension.id).getBlock({ x, y, z });
+                if (block) {
+                    const newContainer = block.getComponent("inventory")?.container;
+                    if (newContainer) {
+                        items.forEach(({ slot, item }) => {
+                            newContainer.setItem(slot, item);
+                        });
+                    }
+                }
+            }, 1);
+        }
+
+        // 権限チェック
+        if (!checkPermissions(player)) return;
+        if (filteredStates.length === 0) return;
         else {
             let blockModes = modeMap.get(player.id) || new Map();
             let mode = blockModes.get(blockId) || 0;
@@ -61,14 +102,12 @@ world.beforeEvents.playerBreakBlock.subscribe(ev => {
     }
 });
 
-
 world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
     itemComponentRegistry.registerCustomComponent("mc:debug_stick", {
         onUseOn: ({ source, block }) => {
             // 権限チェック
-            if (!source.hasTag("op") || !isCreativeMode(source)) {
-                return;
-            }
+            if (!checkPermissions(source)) return;
+
             const blockId = block.type.id;
             const { x, y, z } = block.location;
             const blockAllStates = block.permutation.getAllStates();

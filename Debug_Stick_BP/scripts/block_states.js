@@ -1,5 +1,5 @@
 export const states_result = {
-    // 個別
+    // 個別に調整
     "minecraft:ladder": { "facing_direction": [2, 3, 4, 5], },
     "minecraft:wall_banner": { "facing_direction": [2, 3, 4, 5], },
     // 壁看板
@@ -22,6 +22,7 @@ export const states_result = {
     "minecraft:cocoa": { "age": [0, 1, 2] },
     "minecraft:nether_wart": { "age": [0, 1, 2, 3] },
     "minecraft:chorus_flower": { "age": [0, 1, 2, 3, 4, 5] },
+    "minecraft:pink_petals": { "growth": [0, 1, 2, 3] },
     // 通常
     "normal": {
         // bool値
@@ -85,20 +86,23 @@ export const states_result = {
         "brushed_progress": [0, 1, 2, 3],
         "propagule_stage": [0, 1, 2, 3, 4],
         "respawn_anchor_charge": [0, 1, 2, 3, 4],
+        "honey_level": [0, 1, 2, 3, 4, 5],
         "facing_direction": [0, 1, 2, 3, 4, 5],
         "trial_spawner_state": [0, 1, 2, 3, 4, 5],
         "fill_level": [0, 1, 2, 3, 4, 5, 6],
         "growth": [0, 1, 2, 3, 4, 5, 6, 7],
+        "height": [0, 1, 2, 3, 4, 5, 6, 7],
         "stability": [0, 1, 2, 3, 4, 5, 6, 7],
         "moisturized_amount": [0, 1, 2, 3, 4, 5, 6, 7],
         "composter_fill_level": [0, 1, 2, 3, 4, 5, 6, 7, 8],
         "rail_direction": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
         "age": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-        "ground_sign_direction": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
         "redstone_signal": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
         "huge_mushroom_bits": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+        "ground_sign_direction": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
         "weeping_vines_age": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25],
         "twisting_vines_age": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25],
+        "kelp_age": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25],
         "books_stored": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
             16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
             32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47,

@@ -5,10 +5,12 @@ export const excludedStates = [
     "old_log_type", "new_log_type", "chisel_type", "color", "coral_color",
     "dirt_type", "flower_type", "double_plant_type", "monster_egg_stone_type",
     "old_leaf_type", "new_leaf_type", "prismarine_block_type", "sand_type", "sand_stone_type",
-    "stone_type", "stone_brick_type", "tall_grass_type"
+    "stone_type", "stone_brick_type", "tall_grass_type",
+    // よくわからん
+    "structure_void_type"
 ];
 
-// ブロックごとに除外する
+// ブロックごとのステータスを一部 除外する
 export const blockSpecificExclusions = {
     "minecraft:campfire": ["direction"],
     "minecraft:soul_campfire": ["direction"],
@@ -27,6 +29,7 @@ export const blockSpecificExclusions = {
     "minecraft:end_portal_frame": ["direction"],
     "minecraft:big_dripleaf": ["direction"],
     "minecraft:small_dripleaf_block": ["direction"],
+    "minecraft:pink_petals": ["direction"],
     "minecraft:furnace": ["facing_direction"],
     "minecraft:blast_furnace": ["facing_direction"],
     "minecraft:smoker": ["facing_direction"],
@@ -37,5 +40,7 @@ export const blockSpecificExclusions = {
     "minecraft:amethyst_cluster": ["facing_direction"],
     "minecraft:large_amethyst_bud": ["facing_direction"],
     "minecraft:medium_amethyst_bud": ["facing_direction"],
-    "minecraft:small_amethyst_bud": ["facing_direction"]
+    "minecraft:small_amethyst_bud": ["facing_direction"],
+    // ブロックごと除外
+    "minecraft:bed": ["direction", "head_piece_bit", "occupied_bit"],
 };

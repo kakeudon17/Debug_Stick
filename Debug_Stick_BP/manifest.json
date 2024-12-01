@@ -2,7 +2,7 @@
     "format_version": 2,
     "header": {
         "min_engine_version": [1, 21, 10],
-        "name": "pack.name",
+        "name": "Debug_Stick v1.0.0",
         "description": "pack.description",
         "uuid": "f4c1130d-fa11-47fd-9aab-14f95539744e",
         "version": [1, 0, 0]

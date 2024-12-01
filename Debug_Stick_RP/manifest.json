@@ -2,7 +2,7 @@
     "format_version": 2,
     "header": {
         "min_engine_version": [1, 21, 10],
-        "name": "pack.name",
+        "name": "Debug_Stick RP v1.0.0",
         "description": "pack.description",
         "uuid": "5ca1890c-7c15-4d71-811f-940438e9f3b8",
         "version": [1, 0, 0]

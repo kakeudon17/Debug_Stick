@@ -1,4 +1,3 @@
-pack.name=Debug_Stick RP v1.0.0
 pack.description=This add-on is a recreation of the debug stick found in the Java Edition for the Bedrock Edition.
 pack.item.mc:debug_stick.name=§dDebug Stick§r
 pack.steate.mode=selected "%1" (%2)

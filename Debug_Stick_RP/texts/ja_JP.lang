@@ -1,4 +1,3 @@
-pack.name=デバッグ棒 RP v1.0.0
 pack.description=このアドオンは、Java版にあるデバッグ棒を統合版用に再現したものです。
 pack.item.mc:debug_stick.name=§dデバッグ棒§r
 pack.steate.mode=「%1」を選択しました（%2）

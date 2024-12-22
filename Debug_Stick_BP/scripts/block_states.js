@@ -174,5 +174,13 @@ export const states_result = {
         "turtle_egg_count": ["one_egg", "two_egg", "three_egg", "four_egg"],
         "wall_block_type": ["cobblestone", "mossy_cobblestone", "granite", "diorite", "andesite", "sandstone", "brick", "stone_brick", "mossy_stone_brick", "nether_brick", "end_brick", "prismarine", "red_sandstone", "red_nether_brick"],
         "wood_type": ["oak", "spruce", "birch", "jungle", "acacia", "dark_oak"],
+        // "minecraft:placement_direction"
+        "minecraft:cardinal_direction": ["north", "south", "east", "west"],
+        "minecraft:facing_direction": ["down", "up", "north", "south", "east", "west"],
+        "y_rotation_offset": [0.0, 90.0, 180.0, 270.0],
+        // "minecraft:placement_position"
+        "minecraft:block_face": ["down", "up", "north", "south", "east", "west"],
+        "minecraft:vertical_half": ["bottom", "top"]
+
     }
 }

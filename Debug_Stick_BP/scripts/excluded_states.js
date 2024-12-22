@@ -1,16 +1,14 @@
-// 除外する
+// 必要ないステータスを除外する
 export const excludedStates = [
     "top_slot_bit", "stone_slab_type", "stone_slab_type_2", "stone_slab_type_3",
     "stone_slab_type_4", "wall_block_type", "wood_type", "sapling_type",
     "old_log_type", "new_log_type", "chisel_type", "color", "coral_color",
     "dirt_type", "flower_type", "double_plant_type", "monster_egg_stone_type",
     "old_leaf_type", "new_leaf_type", "prismarine_block_type", "sand_type", "sand_stone_type",
-    "stone_type", "stone_brick_type", "tall_grass_type",
-    // よくわからん
-    "structure_void_type"
+    "stone_type", "stone_brick_type", "tall_grass_type", "structure_void_type"
 ];
 
-// ブロックごとのステータスを一部 除外する
+// ブロックごとにステータスの一部を除外する
 export const blockSpecificExclusions = {
     "minecraft:campfire": ["direction"],
     "minecraft:soul_campfire": ["direction"],
@@ -41,6 +39,7 @@ export const blockSpecificExclusions = {
     "minecraft:large_amethyst_bud": ["facing_direction"],
     "minecraft:medium_amethyst_bud": ["facing_direction"],
     "minecraft:small_amethyst_bud": ["facing_direction"],
+    "minecraft:observer": ["facing_direction"],
     // ブロックごと除外
     "minecraft:bed": ["direction", "head_piece_bit", "occupied_bit"],
 };

@@ -11,6 +11,7 @@ function formatBlockState(key, value) {
         : `"${value}"`;
     return `"${key}"=${formattedValue}`;
 }
+
 function getBlockStatesString(blockAllStates) {
     return Object.entries(blockAllStates)
         .map(([key, value]) => formatBlockState(key, value))
@@ -21,9 +22,34 @@ function getBlockStatesString(blockAllStates) {
 function isCreativeMode(player) {
     return player.matches({ gameMode: "creative" });
 }
+
 // 権限チェック
 function checkPermissions(player) {
     return player.hasTag("op") && isCreativeMode(player);
+}
+
+function handleBlockStateChange(player, block, blockAllStates, currentState, stateValues) {
+    const { x, y, z } = block.location;
+    const currentValue = blockAllStates[currentState];
+    const nextValue = stateValues[(stateValues.indexOf(currentValue) + 1) % stateValues.length];
+    const newStates = { ...blockAllStates, [currentState]: nextValue };
+    const newStatesString = getBlockStatesString(newStates);
+    player.runCommandAsync(`setblock ${x} ${y} ${z} ${block.type.id} [${newStatesString}]`);
+    player.runCommandAsync(`setblock ${x} ${y} ${z} ${block.type.id} [${getBlockStatesString(blockAllStates)}]`);
+}
+
+function restoreContainerItems(player, block, items) {
+    system.runTimeout(() => {
+        const newBlock = world.getDimension(player.dimension.id).getBlock(block.location);
+        if (newBlock) {
+            const newContainer = newBlock.getComponent("inventory")?.container;
+            if (newContainer) {
+                items.forEach(({ slot, item }) => {
+                    newContainer.setItem(slot, item);
+                });
+            }
+        }
+    }, 1);
 }
 
 world.beforeEvents.playerBreakBlock.subscribe(ev => {
@@ -31,15 +57,15 @@ world.beforeEvents.playerBreakBlock.subscribe(ev => {
     if (itemId == "mc:debug_stick") {
         ev.cancel = true;
         const player = ev.player;
-        const blockId = ev.block.type.id;
-        const blockAllStates = ev.block.permutation.getAllStates();
+        const block = ev.block;
+        const blockId = block.type.id;
+        const blockAllStates = block.permutation.getAllStates();
         const specificExclusions = blockSpecificExclusions[blockId] || [];
         const filteredStates = Object.entries(blockAllStates)
             .filter(([key]) => !excludedStates.includes(key) && !specificExclusions.includes(key));
 
         // ブロックの内容を保存
-        const { x, y, z } = ev.block.location;
-        const container = ev.block.getComponent("inventory")?.container;
+        const container = block.getComponent("inventory")?.container;
         const items = [];
         if (container) {
             for (let i = 0; i < container.size; i++) {
@@ -53,31 +79,16 @@ world.beforeEvents.playerBreakBlock.subscribe(ev => {
         // ステータスを変更を2回して元に戻す
         const states = filteredStates.map(([key]) => key);
         const currentState = states[0];
-        const currentValue = blockAllStates[currentState];
         const stateValues = states_result[blockId]?.[currentState] || states_result.normal[currentState];
         if (!stateValues) {
             if (!checkPermissions(player)) return;
             player.runCommandAsync(`${TITLE} {"rawtext":[{"translate":"pack.no.properties","with":["${blockId}"]}]}`);
             return;
         }
-        const nextValue = stateValues[(stateValues.indexOf(currentValue) + 1) % stateValues.length];
-        const newStates = { ...blockAllStates, [currentState]: nextValue };
-        const newStatesString = getBlockStatesString(newStates);
-        player.runCommandAsync(`setblock ${x} ${y} ${z} ${blockId} [${newStatesString}]`);
-        player.runCommandAsync(`setblock ${x} ${y} ${z} ${blockId} [${getBlockStatesString(blockAllStates)}]`);
+        handleBlockStateChange(player, block, blockAllStates, currentState, stateValues);
 
         if (container) {
-            system.runTimeout(() => {
-                const block = world.getDimension(player.dimension.id).getBlock({ x, y, z });
-                if (block) {
-                    const newContainer = block.getComponent("inventory")?.container;
-                    if (newContainer) {
-                        items.forEach(({ slot, item }) => {
-                            newContainer.setItem(slot, item);
-                        });
-                    }
-                }
-            }, 1);
+            restoreContainerItems(player, block, items);
         }
 
         // 権限チェック
@@ -86,7 +97,6 @@ world.beforeEvents.playerBreakBlock.subscribe(ev => {
         else {
             let blockModes = modeMap.get(player.id) || new Map();
             let mode = blockModes.get(blockId) || 0;
-            const states = filteredStates.map(([key]) => key);
             const maxMode = states.length - 1;
             if (ev.player.isSneaking) {
                 mode = (mode - 1) < 0 ? maxMode : mode - 1;
@@ -109,8 +119,8 @@ world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
             if (!checkPermissions(source)) return;
 
             const blockId = block.type.id;
-            const { x, y, z } = block.location;
             const blockAllStates = block.permutation.getAllStates();
+            const { x, y, z } = block.location;
 
             let blockModes = modeMap.get(source.id) || new Map();
             const filteredStates = Object.entries(blockAllStates)
@@ -158,17 +168,7 @@ world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
                                 items.push({ slot: i, item: item });
                             }
                         }
-                        system.runTimeout(() => {
-                            const block = world.getDimension(source.dimension.id).getBlock({ x, y, z });
-                            if (block) {
-                                const newContainer = block.getComponent("inventory")?.container;
-                                if (newContainer) {
-                                    items.forEach(({ slot, item }) => {
-                                        newContainer.setItem(slot, item);
-                                    });
-                                }
-                            }
-                        }, 1);
+                        restoreContainerItems(source, block, items);
                     }
                     source.runCommand(`${TITLE} {"rawtext":[{"translate":"pack.state.change","with":["${currentState}","${nextValue}"]}]}`);
                 }

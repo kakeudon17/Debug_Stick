@@ -127,7 +127,6 @@ export const states_result = {
         "pale_moss_carpet_side_north": ["none", "short", "tall"],
         "pale_moss_carpet_side_south": ["none", "short", "tall"],
         "pale_moss_carpet_side_west": ["none", "short", "tall"],
-        "minecraft:vertical_half": ["bottom", "top"],
         "sponge_type": ["dry", "wet"],
         "pillar_axis": ["x", "y", "z"],
         "bamboo_stalk_thickness": ["thin", "thick"],
@@ -181,6 +180,5 @@ export const states_result = {
         // "minecraft:placement_position"
         "minecraft:block_face": ["down", "up", "north", "south", "east", "west"],
         "minecraft:vertical_half": ["bottom", "top"]
-
     }
 }

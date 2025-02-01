@@ -6,8 +6,8 @@
 /tag @s add op
 ```
 
-動作確認バージョン（バージョンごとに書いてあります）  
-Minecraft:Bedrock_Edition（統合版）
+動作確認バージョン（最新のみ以下）
+Minecraft:v1.21.51
 
 マルチプレイ対応
 

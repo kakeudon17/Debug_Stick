@@ -1,11 +1,11 @@
 {
     "format_version": 2,
     "header": {
-        "min_engine_version": [1, 21, 10],
-        "name": "Debug Stick RP v1.0.3",
+        "min_engine_version": [1, 21, 60],
+        "name": "Debug Stick RP v1.0.4",
         "description": "pack.description",
         "uuid": "5ca1890c-7c15-4d71-811f-940438e9f3b8",
-        "version": [1, 0, 3]
+        "version": [1, 0, 4]
     },
     "modules": [
         {
@@ -17,7 +17,7 @@
     "dependencies": [
         {
             "uuid": "f4c1130d-fa11-47fd-9aab-14f95539744e",
-            "version": [1, 0, 3]
+            "version": [1, 0, 4]
         }
     ]
 }

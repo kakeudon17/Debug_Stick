@@ -25,7 +25,7 @@ function isCreativeMode(player) {
 
 // 権限チェック
 function checkPermissions(player) {
-    return player.hasTag("op") && isCreativeMode(player);
+    return player.isOp() && isCreativeMode(player);
 }
 
 function handleBlockStateChange(player, block, blockAllStates, currentState, stateValues) {

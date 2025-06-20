@@ -88,6 +88,7 @@ export const states_result = {
         "repeater_delay": [0, 1, 2, 3],
         "deprecated": [0, 1, 2, 3],
         "brushed_progress": [0, 1, 2, 3],
+        "rehydration_level": [0, 1, 2, 3],
         "propagule_stage": [0, 1, 2, 3, 4],
         "respawn_anchor_charge": [0, 1, 2, 3, 4],
         "honey_level": [0, 1, 2, 3, 4, 5],

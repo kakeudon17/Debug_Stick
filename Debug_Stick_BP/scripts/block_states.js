@@ -1,6 +1,6 @@
 export const states_result = {
     // 通常
-    "defalt": {
+    "default": {
         // bool値
         "upside_down_bit": [true, false],
         "open_bit": [true, false],
@@ -158,32 +158,31 @@ export const states_result = {
         // "minecraft:placement_position"
         "minecraft:block_face": ["down", "up", "north", "south", "east", "west"],
         "minecraft:vertical_half": ["bottom", "top"],
-
-        // 個別に調整
-        "blocks": {
-            "minecraft:ladder": { "facing_direction": [2, 3, 4, 5], },
-            "minecraft:wall_banner": { "facing_direction": [2, 3, 4, 5], },
-            // 壁看板
-            "minecraft:wall_sign": { "facing_direction": [2, 3, 4, 5], },
-            "minecraft:spruce_wall_sign": { "facing_direction": [2, 3, 4, 5], },
-            "minecraft:birch_wall_sign": { "facing_direction": [2, 3, 4, 5], },
-            "minecraft:jungle_wall_sign": { "facing_direction": [2, 3, 4, 5], },
-            "minecraft:acacia_wall_sign": { "facing_direction": [2, 3, 4, 5], },
-            "minecraft:darkoak_wall_sign": { "facing_direction": [2, 3, 4, 5], },
-            "minecraft:mangrove_wall_sign": { "facing_direction": [2, 3, 4, 5], },
-            "minecraft:cherry_wall_sign": { "facing_direction": [2, 3, 4, 5], },
-            "minecraft:bamboo_wall_sign": { "facing_direction": [2, 3, 4, 5], },
-            "minecraft:crimson_wall_sign": { "facing_direction": [2, 3, 4, 5], },
-            "minecraft:warped_wall_sign": { "facing_direction": [2, 3, 4, 5], },
-            // レール
-            "minecraft:golden_rail": { "rail_direction": [0, 1, 2, 3, 4, 5] },
-            "minecraft:detector_rail": { "rail_direction": [0, 1, 2, 3, 4, 5] },
-            "minecraft:activator_rail": { "rail_direction": [0, 1, 2, 3, 4, 5] },
-            // 植物
-            "minecraft:cocoa": { "age": [0, 1, 2] },
-            "minecraft:nether_wart": { "age": [0, 1, 2, 3] },
-            "minecraft:chorus_flower": { "age": [0, 1, 2, 3, 4, 5] },
-            "minecraft:pink_petals": { "growth": [0, 1, 2, 3] },
-        },
-    }
+    },
+    // 個別に調整
+    "blocks": {
+        "minecraft:ladder": { "facing_direction": [2, 3, 4, 5], },
+        "minecraft:wall_banner": { "facing_direction": [2, 3, 4, 5], },
+        // 壁看板
+        "minecraft:wall_sign": { "facing_direction": [2, 3, 4, 5], },
+        "minecraft:spruce_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+        "minecraft:birch_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+        "minecraft:jungle_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+        "minecraft:acacia_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+        "minecraft:darkoak_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+        "minecraft:mangrove_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+        "minecraft:cherry_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+        "minecraft:bamboo_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+        "minecraft:crimson_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+        "minecraft:warped_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+        // レール
+        "minecraft:golden_rail": { "rail_direction": [0, 1, 2, 3, 4, 5] },
+        "minecraft:detector_rail": { "rail_direction": [0, 1, 2, 3, 4, 5] },
+        "minecraft:activator_rail": { "rail_direction": [0, 1, 2, 3, 4, 5] },
+        // 植物
+        "minecraft:cocoa": { "age": [0, 1, 2] },
+        "minecraft:nether_wart": { "age": [0, 1, 2, 3] },
+        "minecraft:chorus_flower": { "age": [0, 1, 2, 3, 4, 5] },
+        "minecraft:pink_petals": { "growth": [0, 1, 2, 3] },
+    },
 }

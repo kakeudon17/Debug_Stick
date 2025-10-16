@@ -21,7 +21,7 @@ function getBlockStatesString(blockAllStates) {
 }
 
 function checkPermissions(player) {
-    return player.playerPermissionLevel.valueOf() === 2 && player.getGameMode() === "Creative";
+    return player.commandPermissionLevel.valueOf() === 3 && player.getGameMode() === "Creative";
 }
 
 function getFilteredStates(blockId, blockAllStates) {
@@ -31,7 +31,7 @@ function getFilteredStates(blockId, blockAllStates) {
 }
 
 function getStateValues(blockId, currentState) {
-    return states_result.blocks[blockId]?.[currentState] || states_result.defalt[currentState];
+    return states_result.blocks[blockId]?.[currentState] || states_result.default[currentState];
 }
 
 // コンテナ関連
@@ -64,7 +64,7 @@ function restoreContainerItems(player, block, items) {
     }, 1);
 }
 
-// ブロック状態変更
+// ブロック更新
 function handleBlockStateChange(player, block, blockAllStates, currentState, stateValues) {
     const { x, y, z } = block.location;
     const currentValue = blockAllStates[currentState];
@@ -131,7 +131,9 @@ server.world.beforeEvents.playerBreakBlock.subscribe(ev => {
         return;
     }
 
+    // ブロック更新
     handleBlockStateChange(player, block, blockAllStates, currentState, stateValues);
+
     restoreContainerItems(player, block, items);
 
     if (filteredStates.length === 0) return;
@@ -167,17 +169,19 @@ server.system.beforeEvents.startup.subscribe(ev => {
                 setPlayerBlockMode(source.id, blockId, 0);
             }
 
-            if (!blockModes.has(blockId)) {
-                sendMessage(source, "pack.no.properties", [blockId]);
-                return;
-            }
-
             const mode = getPlayerBlockMode(source.id, blockId);
             const states = validStates.map(([key]) => key);
             const currentState = states[mode];
             const stateValues = getStateValues(blockId, currentState);
 
-            if (!stateValues) return;
+            if (!blockModes.has(blockId) || !stateValues) {
+                sendMessage(source, "pack.no.properties", [blockId]);
+                return;
+            }
+
+            // setblock の前にコンテナ内アイテムを保存する
+            const container = block.getComponent("inventory")?.container;
+            const items = saveContainerItems(container);
 
             // 値サイクル
             const currentValue = blockAllStates[currentState];
@@ -186,14 +190,12 @@ server.system.beforeEvents.startup.subscribe(ev => {
                 ? stateValues[(valueIndex - 1 + stateValues.length) % stateValues.length]
                 : stateValues[(valueIndex + 1) % stateValues.length];
 
-            // ブロック更新
+            // // ブロック更新
             const newStates = { ...blockAllStates, [currentState]: nextValue };
             const newStatesString = getBlockStatesString(newStates);
             source.runCommand(`setblock ${x} ${y} ${z} ${blockId} [${newStatesString}]`);
 
-            // コンテナ復元
-            const container = block.getComponent("inventory")?.container;
-            const items = saveContainerItems(container);
+            // コンテナ復元（setblock 後に復元）
             restoreContainerItems(source, block, items);
 
             sendMessage(source, "pack.state.change", [currentState, nextValue]);

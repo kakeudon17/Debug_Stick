@@ -1,5 +1,9 @@
 pack.description=このアドオンは、Java版にあるデバッグ棒を統合版用に再現したものです。
-pack.item.mc:debug_stick.name=デバッグ棒
-pack.steate.mode=「%1」を選択しました（%2）
-pack.state.change=「%1」を%2に変更しました
-pack.no.properties=%1はプロパティを持っていません
+debug_stick.item.dmc:debug_stick.name=デバッグ棒
+debug_stick.steate.mode=「%1」を選択しました（%2）
+debug_stick.state.change=「%1」を%2に変更しました
+debug_stick.no.properties=%1はプロパティを持っていません
+
+debug_stick.settings.title=デバッグ棒の設定
+debug_stick.settings.toggle.states=「未使用のステートを追加」
+debug_stick.settings.updated=の設定を「%1」に更新しました。

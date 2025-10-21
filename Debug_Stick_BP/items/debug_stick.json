@@ -2,7 +2,7 @@
     "format_version": "1.21.90",
     "minecraft:item": {
         "description": {
-            "identifier": "mc:debug_stick",
+            "identifier": "dmc:debug_stick",
             "menu_category": {
                 "category": "equipment"
             }
@@ -14,9 +14,9 @@
             "minecraft:glint": true,
             "minecraft:rarity": "epic",
             "minecraft:display_name": {
-                "value": "pack.item.mc:debug_stick.name"
+                "value": "debug_stick.item.dmc:debug_stick.name"
             },
-            "mc:debug_stick": {}
+            "dmc:debug_stick": {}
         }
     }
 }

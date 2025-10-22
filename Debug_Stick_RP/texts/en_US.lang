@@ -5,5 +5,10 @@ debug_stick.state.change="%1" to %2
 debug_stick.no.properties=%1 has no properties
 
 debug_stick.settings.title=Debug Stick Settings
-debug_stick.settings.toggle.states="Add Unused States"
-debug_stick.settings.updated= Setting updated to "%1"
+debug_stick.settings.platform=Platform Support
+debug_stick.settings.platform.pc=PC
+debug_stick.settings.platform.mobile=Mobile
+debug_stick.settings.platform.all=All
+debug_stick.settings.toggle.states=Add Unused States
+debug_stick.settings.toggle.tag_mode=Enable Tag Mode
+debug_stick.settings.updated=Settings Updated

@@ -141,9 +141,7 @@ export const states_result = {
         "dripstone_thickness": ["tip", "merge", "frustum", "middle", "base"],
         "big_dripleaf_tilt": ["none", "unstable", "partial_tilt", "full_tilt"],
         "vault_state": ["inactive", "active", "unlocking", "ejecting "],
-        "minecraft:cardinal_direction": ["west", "east", "north", "south"],
         "torch_facing_direction": ["west", "east", "north", "south", "top"],
-        "minecraft:block_face": ["west", "east", "north", "south", "up", "down"],
         "lever_direction": ["up_east_west", "up_north_south", "west", "east", "north", "south", "down_east_west", "down_north_south"],
         "orientation": ["west_up", "east_up", "north_up", "south_up", "up_west", "up_east", "up_north", "up_south", "down_west", "down_east", "down_north", "down_south"],
         "color": ["white", "silver", "gray", "black", "brown", "red", "orange", "yellow", "lime", "green", "cyan", "light_blue", "blue", "purple", "magenta", "pink"],
@@ -153,17 +151,22 @@ export const states_result = {
         "turtle_egg_count": ["one_egg", "two_egg", "three_egg", "four_egg"],
         // "minecraft:placement_direction"
         "minecraft:cardinal_direction": ["north", "south", "east", "west"],
-        "minecraft:facing_direction": ["down", "up", "north", "south", "east", "west"],
-        "y_rotation_offset": [0.0, 90.0, 180.0, 270.0],
+        "minecraft:facing_direction": ["down", "up", "north", "south", "east", "west"],        "y_rotation_offset": [0.0, 90.0, 180.0, 270.0],
         // "minecraft:placement_position"
         "minecraft:block_face": ["down", "up", "north", "south", "east", "west"],
         "minecraft:vertical_half": ["bottom", "top"],
     },
     // 個別に調整
     "blocks": {
+        // 向き指定
+        "minecraft:chest": { "facing_direction": [2, 3, 4, 5], },
+        "minecraft:trapped_chest": { "facing_direction": [2, 3, 4, 5], },
+        "minecraft:ender_chest": { "facing_direction": [2, 3, 4, 5], },
+        "minecraft:furnace": { "facing_direction": [2, 3, 4, 5], },
+        "minecraft:blast_furnace": { "facing_direction": [2, 3, 4, 5], },
+        "minecraft:smoker": { "facing_direction": [2, 3, 4, 5], },
         "minecraft:ladder": { "facing_direction": [2, 3, 4, 5], },
         "minecraft:wall_banner": { "facing_direction": [2, 3, 4, 5], },
-        // 壁看板
         "minecraft:wall_sign": { "facing_direction": [2, 3, 4, 5], },
         "minecraft:spruce_wall_sign": { "facing_direction": [2, 3, 4, 5], },
         "minecraft:birch_wall_sign": { "facing_direction": [2, 3, 4, 5], },
@@ -175,11 +178,11 @@ export const states_result = {
         "minecraft:bamboo_wall_sign": { "facing_direction": [2, 3, 4, 5], },
         "minecraft:crimson_wall_sign": { "facing_direction": [2, 3, 4, 5], },
         "minecraft:warped_wall_sign": { "facing_direction": [2, 3, 4, 5], },
-        // レール
+        // レール系
         "minecraft:golden_rail": { "rail_direction": [0, 1, 2, 3, 4, 5] },
         "minecraft:detector_rail": { "rail_direction": [0, 1, 2, 3, 4, 5] },
         "minecraft:activator_rail": { "rail_direction": [0, 1, 2, 3, 4, 5] },
-        // 植物
+        // 成長段階
         "minecraft:cocoa": { "age": [0, 1, 2] },
         "minecraft:nether_wart": { "age": [0, 1, 2, 3] },
         "minecraft:chorus_flower": { "age": [0, 1, 2, 3, 4, 5] },

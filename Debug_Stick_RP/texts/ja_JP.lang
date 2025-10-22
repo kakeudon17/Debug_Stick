@@ -5,5 +5,10 @@ debug_stick.state.change=「%1」を%2に変更しました
 debug_stick.no.properties=%1はプロパティを持っていません
 
 debug_stick.settings.title=デバッグ棒の設定
-debug_stick.settings.toggle.states=「未使用のステートを追加」
-debug_stick.settings.updated=の設定を「%1」に更新しました。
+debug_stick.settings.platform=対応プラットフォーム
+debug_stick.settings.platform.pc=PC版
+debug_stick.settings.platform.mobile=スマホ版
+debug_stick.settings.platform.all=すべて
+debug_stick.settings.toggle.states=未使用のステートを追加
+debug_stick.settings.toggle.tag_mode=タグモードを有効
+debug_stick.settings.updated=設定を更新しました

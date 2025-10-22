@@ -1,9 +1,28 @@
 import * as server from "@minecraft/server";
 import { ModalFormData } from "@minecraft/server-ui";
-import { excludedStates, blockSpecificExclusions } from "./excluded_states.js";
 
-export let add_unused_states = false;
 export let modeMap = new Map();
+export let platform_unused_status = 0;
+export let add_unused_states = false;
+export let tag_mode = false;
+
+const DP = {
+    platform_unused_status: "debug_stick:platform_unused_status",
+    add_unused_states: "debug_stick:add_unused_states",
+    tag_mode: "debug_stick:tag_mode"
+}
+
+server.world.afterEvents.worldLoad.subscribe(() => {
+    server.world.getDynamicProperty(DP.platform_unused_status) !== undefined
+        ? platform_unused_status = server.world.getDynamicProperty(DP.platform_unused_status)
+        : server.world.setDynamicProperty(DP.platform_unused_status, platform_unused_status);
+    server.world.getDynamicProperty(DP.add_unused_states) !== undefined
+        ? add_unused_states = server.world.getDynamicProperty(DP.add_unused_states)
+        : server.world.setDynamicProperty(DP.add_unused_states, add_unused_states);
+    server.world.getDynamicProperty(DP.tag_mode) !== undefined
+        ? tag_mode = server.world.getDynamicProperty(DP.tag_mode)
+        : server.world.setDynamicProperty(DP.tag_mode, tag_mode);
+});
 
 server.system.beforeEvents.startup.subscribe(ev => {
     ev.customCommandRegistry.registerCommand({
@@ -17,16 +36,23 @@ server.system.beforeEvents.startup.subscribe(ev => {
         server.system.run(() => {
             const form = new ModalFormData();
             form.title("debug_stick.settings.title");
+            form.dropdown("debug_stick.settings.platform", ["debug_stick.settings.platform.pc", "debug_stick.settings.platform.mobile",
+                "debug_stick.settings.platform.all"], { defaultValueIndex: platform_unused_status });
             form.toggle("debug_stick.settings.toggle.states", { defaultValue: add_unused_states });
+            form.toggle("debug_stick.settings.toggle.tag_mode", { defaultValue: tag_mode });
 
             form.show(player).then(response => {
                 if (response.canceled) return;
-                add_unused_states = response.formValues[0];
+                platform_unused_status = response.formValues[0];
+                add_unused_states = response.formValues[1];
+                tag_mode = response.formValues[2];
                 if (add_unused_states) {
-                    modeMap.clear(excludedStates, blockSpecificExclusions);
+                    modeMap.clear();
                 }
-
-                player.runCommand(`titleraw @s actionbar {"rawtext":[{"translate":"debug_stick.settings.toggle.states"},{"translate":"debug_stick.settings.updated","with":["${add_unused_states}"]}]}`);
+                server.world.setDynamicProperty(DP.platform_unused_status, platform_unused_status);
+                server.world.setDynamicProperty(DP.add_unused_states, add_unused_states);
+                server.world.setDynamicProperty(DP.tag_mode, tag_mode);
+                player.runCommand(`titleraw @s actionbar {"rawtext":[{"translate":"debug_stick.settings.updated"}]}`);
             });
         });
     });

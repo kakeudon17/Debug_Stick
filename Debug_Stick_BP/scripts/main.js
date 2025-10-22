@@ -1,6 +1,6 @@
 import * as server from "@minecraft/server";
-import { add_unused_states, modeMap } from "./settings.js";
-import { excludedStates, blockSpecificExclusions } from "./excluded_states.js";
+import { modeMap, platform_unused_status, add_unused_states, tag_mode } from "./settings.js";
+import { excludedstates } from "./excluded_states.js";
 import { states_result } from "./block_states.js";
 
 const DEBUG_STICK_ID = "dmc:debug_stick";
@@ -21,18 +21,40 @@ function getBlockStatesString(blockAllStates) {
 
 // 権限チェック
 function checkPermissions(player) {
-    return player.commandPermissionLevel.valueOf() >= 2 && player.getGameMode() === "Creative";
+    if (player.getGameMode() !== "Creative") return false;
+
+    return tag_mode
+        ? player.hasTag("DebugStick_Mode") || player.commandPermissionLevel.valueOf() >= 2
+        : player.commandPermissionLevel.valueOf() >= 2;
 }
 
 // ステートフィルタリング
 function getFilteredStates(blockId, blockAllStates) {
     const allEntries = Object.entries(blockAllStates || {});
+
+    // デフォルトの除外ステート
+    let defaultExcludedStates = [];
+    let defaultBlockExclusions = [];
+
     if (add_unused_states === false) {
-        const specificExclusions = blockSpecificExclusions[blockId] || [];
-        return allEntries.filter(([key]) => !excludedStates.includes(key) && !specificExclusions.includes(key));
+        defaultExcludedStates = excludedstates.default.states || [];
+        defaultBlockExclusions = excludedstates.default.blocks[blockId] || [];
     }
-    // add_unused_states が true のときは全ステートを返す
-    return allEntries;
+
+    // プラットフォームの設定を取得
+    const platformKey = platform_unused_status === 0 ? "PC" : platform_unused_status === 1 ? "Mobile" : null;
+
+    // プラットフォーム固有の除外ステート
+    const platformExcludedStates = platformKey ? (excludedstates[platformKey]?.states || []) : [];
+    const platformBlockExclusions = platformKey ? (excludedstates[platformKey]?.blocks?.[blockId] || []) : [];
+
+    // すべての除外リストを結合
+    const allExcludedStates = [...defaultExcludedStates, ...platformExcludedStates];
+    const allBlockExclusions = [...defaultBlockExclusions, ...platformBlockExclusions];
+
+    return allEntries.filter(([key]) =>
+        !allExcludedStates.includes(key) && !allBlockExclusions.includes(key)
+    );
 }
 
 // ステート値取得

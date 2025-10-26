@@ -3,7 +3,7 @@ import { modeMap, platform_unused_status, add_unused_states, tag_mode } from "./
 import { excludedstates } from "./excluded_states.js";
 import { states_result } from "./block_states.js";
 
-const DEBUG_STICK_ID = "dmc:debug_stick";
+const DEBUG_STICK_ID = "mcx:debug_stick";
 
 // ユーティリティ関数
 function formatBlockState(key, value) {
@@ -24,8 +24,8 @@ function checkPermissions(player) {
     if (player.getGameMode() !== "Creative") return false;
 
     return tag_mode
-        ? player.hasTag("DebugStick_Mode") || player.commandPermissionLevel.valueOf() >= 2
-        : player.commandPermissionLevel.valueOf() >= 2;
+        ? player.hasTag("DebugStick_Mode") || player.commandPermissionLevel.valueOf() >= 1
+        : player.commandPermissionLevel.valueOf() >= 1;
 }
 
 // ステートフィルタリング
@@ -158,7 +158,7 @@ server.world.beforeEvents.playerBreakBlock.subscribe(ev => {
     const stateValues = getStateValues(blockId, currentState);
 
     if (!stateValues) {
-        sendMessage(player, "debug_stick.no.properties", [blockId]);
+        sendMessage(player, "mcx:debug_stick.no.properties", [blockId]);
         return;
     }
 
@@ -178,7 +178,7 @@ server.world.beforeEvents.playerBreakBlock.subscribe(ev => {
 
     const newState = states[newMode];
     const newValue = blockAllStates[newState];
-    sendMessage(player, "debug_stick.steate.mode", [newState, newValue]);
+    sendMessage(player, "message.mcx:debug_stick.steate.mode", [newState, newValue]);
 });
 
 // カスタムコンポーネント登録
@@ -207,7 +207,7 @@ server.system.beforeEvents.startup.subscribe(ev => {
             const stateValues = getStateValues(blockId, currentState);
 
             if (!stateValues) {
-                sendMessage(source, "debug_stick.no.properties", [blockId]);
+                sendMessage(source, "message.mcx:debug_stick.no.properties", [blockId]);
                 return;
             }
 
@@ -230,7 +230,7 @@ server.system.beforeEvents.startup.subscribe(ev => {
             // コンテナ復元
             restoreContainerItems(source, block, items);
 
-            sendMessage(source, "debug_stick.state.change", [currentState, nextValue]);
+            sendMessage(source, "message.mcx:debug_stick.state.change", [currentState, nextValue]);
         }
     });
 });

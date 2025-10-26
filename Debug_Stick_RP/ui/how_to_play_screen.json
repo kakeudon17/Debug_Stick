@@ -1,0 +1,132 @@
+{
+    "namespace": "how_to_play",
+    "how_to_play_selector_stack_panel/how_to_play_selector_pane": {
+        "modifications": [
+            {
+                "array_name": "controls",
+                "operation": "insert_front",
+                "value": [
+                    {
+                        "padding_00": {
+                            "type": "panel",
+                            "size": [0, 6]
+                        }
+                    },
+                    {
+                        "debug_stick_category@how_to_play_common.topic_category": {
+                            "$category": "debug_stick"
+                        }
+                    },
+                    {
+                        "debug_stick_button@how_to_play.debug_stick_button": {
+                            "$toggle_group_forced_index": 100,
+                            "ignored": "$education_edition"
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "how_to_play_section_content_panels/general_tips_sections": {
+        "modifications": [
+            {
+                "array_name": "controls",
+                "operation": "insert_front",
+                "value": [
+                    {
+                        "debug_stick_section@how_to_play.debug_stick_section": {}
+                    }
+                ]
+            }
+        ]
+    },
+    "debug_stick_button@how_to_play_common.section_toggle_button": {
+        "$section_topic": "debug_stick"
+    },
+    "debug_stick_section@how_to_play_common.main_sections": {
+        "bindings": [
+            {
+                "binding_type": "view",
+                "source_control_name": "debug_stick_button_toggle",
+                "source_property_name": "#toggle_state",
+                "target_property_name": "#visible"
+            }
+        ],
+        "controls": [
+            {
+                "padding_1@how_to_play_common.padding": {}
+            },
+            {
+                "header_1@how_to_play_common.header": {
+                    "$text": "howtoplay.mcx:debug_stick.header.1"
+                }
+            },
+            {
+                "paragraph_1@how_to_play_common.paragraph": {
+                    "$text": "howtoplay.mcx:debug_stick.text.1"
+                }
+            },
+            {
+                "padding_1@how_to_play_common.padding": {}
+            },
+            {
+                "header_2@how_to_play_common.header": {
+                    "$text": "howtoplay.mcx:debug_stick.header.2"
+                }
+            },
+            {
+                "paragraph_2_keyboard@how_to_play_common.paragraph_keyboard": {
+                    "$text": "howtoplay.mcx:debug_stick.text.2.keyboard"
+                }
+            },
+            {
+                "paragraph_2_gamepad@how_to_play_common.paragraph_gamepad": {
+                    "$text": "howtoplay.mcx:debug_stick.text.2.gamepad"
+                }
+            },
+            {
+                "paragraph_touch_joystick_tap@how_to_play_common.paragraph_touch_no_icons": {
+                    "$text": "howtoplay.mcx:debug_stick.text.2.touch"
+                }
+            },
+            {
+                "padding_1@how_to_play_common.padding": {}
+            },
+            {
+                "header_3@how_to_play_common.header": {
+                    "$text": "howtoplay.mcx:debug_stick.header.3"
+                }
+            },
+            {
+                "image_1@how_to_play_common.image": {
+                    "texture": "textures/ui/form.png",
+                    "size": [275, 175]
+                }
+            },
+            {
+                "padding_1@how_to_play_common.padding": {}
+            },
+            {
+                "paragraph_3_1@how_to_play_common.paragraph": {
+                    "$text": "howtoplay.mcx:debug_stick.text.3-1"
+                }
+            },
+            {
+                "padding_1@how_to_play_common.padding": {}
+            },
+            {
+                "paragraph_3_2@how_to_play_common.paragraph": {
+                    "$text": "howtoplay.mcx:debug_stick.text.3-2"
+                }
+            },
+            {
+                "padding_1@how_to_play_common.padding": {}
+            },
+            {
+                "paragraph_3_3@how_to_play_common.paragraph": {
+                    "$text": "howtoplay.mcx:debug_stick.text.3-3"
+                }
+            }
+        ]
+    }
+}

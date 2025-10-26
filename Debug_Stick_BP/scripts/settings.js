@@ -2,7 +2,7 @@ import * as server from "@minecraft/server";
 import { ModalFormData } from "@minecraft/server-ui";
 
 export let modeMap = new Map();
-export let platform_unused_status = 0;
+export let platform_unused_status = 3;
 export let add_unused_states = false;
 export let tag_mode = false;
 
@@ -27,19 +27,19 @@ server.world.afterEvents.worldLoad.subscribe(() => {
 server.system.beforeEvents.startup.subscribe(ev => {
     ev.customCommandRegistry.registerCommand({
         name: "settings:debug_stick",
-        description: "debug_stick.settings.title",
-        permissionLevel: server.CommandPermissionLevel.Admin,
+        description: "settings.mcx:debug_stick.title",
+        permissionLevel: server.CommandPermissionLevel.GameDirectors,
         mandatoryParameters: [],
         optionalParameters: [],
     }, (origin) => {
         const player = origin.sourceEntity
         server.system.run(() => {
             const form = new ModalFormData();
-            form.title("debug_stick.settings.title");
-            form.dropdown("debug_stick.settings.platform", ["debug_stick.settings.platform.pc", "debug_stick.settings.platform.mobile",
-                "debug_stick.settings.platform.all"], { defaultValueIndex: platform_unused_status });
-            form.toggle("debug_stick.settings.toggle.states", { defaultValue: add_unused_states });
-            form.toggle("debug_stick.settings.toggle.tag_mode", { defaultValue: tag_mode });
+            form.title("settings.mcx:debug_stick.title");
+            form.dropdown("settings.mcx:debug_stick.platform", ["settings.mcx:debug_stick.platform.pc", "settings.mcx:debug_stick.platform.mobile",
+                "settings.mcx:debug_stick.platform.all"], { defaultValueIndex: platform_unused_status });
+            form.toggle("settings.mcx:debug_stick.toggle.states", { defaultValue: add_unused_states });
+            form.toggle("settings.mcx:debug_stick.toggle.tag_mode", { defaultValue: tag_mode });
 
             form.show(player).then(response => {
                 if (response.canceled) return;
@@ -52,7 +52,7 @@ server.system.beforeEvents.startup.subscribe(ev => {
                 server.world.setDynamicProperty(DP.platform_unused_status, platform_unused_status);
                 server.world.setDynamicProperty(DP.add_unused_states, add_unused_states);
                 server.world.setDynamicProperty(DP.tag_mode, tag_mode);
-                player.runCommand(`titleraw @s actionbar {"rawtext":[{"translate":"debug_stick.settings.updated"}]}`);
+                player.runCommand(`titleraw @s actionbar {"rawtext":[{"translate":"settings.mcx:debug_stick.updated"}]}`);
             });
         });
     });

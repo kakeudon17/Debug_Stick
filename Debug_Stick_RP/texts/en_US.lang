@@ -1,7 +1,7 @@
 pack.description=This add-on is a recreation of the debug stick found in the Java Edition for the Bedrock Edition.
 item.mcx:debug_stick.name=Debug Stick
 
-message.mcx:debug_stick.steate.mode=selected "%1" (%2)
+message.mcx:debug_stick.state.mode=selected "%1" (%2)
 message.mcx:debug_stick.state.change="%1" to %2
 message.mcx:debug_stick.no.properties=%1 has no properties
 
@@ -13,3 +13,21 @@ settings.mcx:debug_stick.platform.all=All
 settings.mcx:debug_stick.toggle.states=Add Unused States
 settings.mcx:debug_stick.toggle.tag_mode=Enable Tag Mode
 settings.mcx:debug_stick.updated=Settings Updated
+
+howtoplay.debug_stick.title=Add-on: How to Use Debug Stick
+howtoplay.category.debug_stick=Add-on: Debug Stick
+howtoplay.debug_stick=How to Use Debug Stick
+
+howtoplay.mcx:debug_stick.header.1=What is the Debug Stick?
+howtoplay.mcx:debug_stick.text.1=An item that recreates the one found in Java Edition.\nA tool that allows easy changes to block states.
+howtoplay.mcx:debug_stick.header.2-1=Usage Conditions
+howtoplay.mcx:debug_stick.text.2-1=To use the Debug Stick,\nCreative Mode and permissions (OP) are required.\n*Permissions can be substituted by enabling Tag Mode.
+howtoplay.mcx:debug_stick.header.2-2=How to Use
+howtoplay.mcx:debug_stick.text.2-2.action=Hold the Debug Stick, aim at a block, and\n:_input_key.use: Use button to change states.\n:_input_key.attack: Attack button to cycle through states.\n:_input_key.sneak: While sneaking,\nthe above operations work in reverse.
+howtoplay.mcx:debug_stick.text.2-2.touch.tap=Hold the Debug Stick, aim at a block, and\ntap to use to change states.\nLong press to cycle through states.\n\n:_input_key.sneak: While sneaking,\nthe above operations work in reverse.
+howtoplay.mcx:debug_stick.header.3=Settings Screen
+howtoplay.mcx:debug_stick.text.3=Command: /settings:debug_stick
+howtoplay.mcx:debug_stick.text.3-1=- Host Platform Setting\n Optimizes Debug Stick behavior for the host platform.
+howtoplay.mcx:debug_stick.text.3-2=- Add Unused States\n Makes all states available for use with the Debug Stick.
+howtoplay.mcx:debug_stick.text.3-3=- Enable Tag Mode\n When Tag Mode is enabled, it acts as an alternative to permissions.
+howtoplay.mcx:debug_stick.tag_name=Tag: debug_stick

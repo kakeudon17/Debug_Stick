@@ -7,18 +7,18 @@ export let add_unused_states = false;
 export let tag_mode = false;
 
 const DP = {
-    platform_unused_status: "debug_stick:platform_unused_status",
-    add_unused_states: "debug_stick:add_unused_states",
+    platform_status: "debug_stick:platform_unused_status",
+    unused_states: "debug_stick:add_unused_states",
     tag_mode: "debug_stick:tag_mode"
 }
 
 server.world.afterEvents.worldLoad.subscribe(() => {
-    server.world.getDynamicProperty(DP.platform_unused_status) !== undefined
-        ? platform_unused_status = server.world.getDynamicProperty(DP.platform_unused_status)
-        : server.world.setDynamicProperty(DP.platform_unused_status, platform_unused_status);
-    server.world.getDynamicProperty(DP.add_unused_states) !== undefined
-        ? add_unused_states = server.world.getDynamicProperty(DP.add_unused_states)
-        : server.world.setDynamicProperty(DP.add_unused_states, add_unused_states);
+    server.world.getDynamicProperty(DP.platform_status) !== undefined
+        ? platform_unused_status = server.world.getDynamicProperty(DP.platform_status)
+        : server.world.setDynamicProperty(DP.platform_status, platform_unused_status);
+    server.world.getDynamicProperty(DP.unused_states) !== undefined
+        ? add_unused_states = server.world.getDynamicProperty(DP.unused_states)
+        : server.world.setDynamicProperty(DP.unused_states, add_unused_states);
     server.world.getDynamicProperty(DP.tag_mode) !== undefined
         ? tag_mode = server.world.getDynamicProperty(DP.tag_mode)
         : server.world.setDynamicProperty(DP.tag_mode, tag_mode);
@@ -27,17 +27,23 @@ server.world.afterEvents.worldLoad.subscribe(() => {
 server.system.beforeEvents.startup.subscribe(ev => {
     ev.customCommandRegistry.registerCommand({
         name: "settings:debug_stick",
-        description: "settings.mcx:debug_stick.title",
+        description: "Debug Stick Settings",
         permissionLevel: server.CommandPermissionLevel.GameDirectors,
         mandatoryParameters: [],
         optionalParameters: [],
     }, (origin) => {
-        const player = origin.sourceEntity
+        const player = origin.sourceEntity;
+        if (player?.typeId !== "minecraft:player") {
+            return {
+                status: server.CustomCommandStatus.Failure,
+                message: "commands.generic.malformed.type",
+            };
+        }
         server.system.run(() => {
             const form = new ModalFormData();
             form.title("settings.mcx:debug_stick.title");
-            form.dropdown("settings.mcx:debug_stick.platform", ["settings.mcx:debug_stick.platform.pc", "settings.mcx:debug_stick.platform.mobile",
-                "settings.mcx:debug_stick.platform.all"], { defaultValueIndex: platform_unused_status });
+            form.dropdown("settings.mcx:debug_stick.platform_status", ["settings.mcx:debug_stick.platform_status.pc", "settings.mcx:debug_stick.platform_status.mobile",
+                "settings.mcx:debug_stick.platform_status.all"], { defaultValueIndex: platform_unused_status });
             form.toggle("settings.mcx:debug_stick.toggle.states", { defaultValue: add_unused_states });
             form.toggle("settings.mcx:debug_stick.toggle.tag_mode", { defaultValue: tag_mode });
 

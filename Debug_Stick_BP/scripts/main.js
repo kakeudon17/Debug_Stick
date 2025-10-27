@@ -24,7 +24,7 @@ function checkPermissions(player) {
     if (player.getGameMode() !== "Creative") return false;
 
     return tag_mode
-        ? player.hasTag("DebugStick_Mode") || player.commandPermissionLevel.valueOf() >= 1
+        ? player.hasTag("debug_stick") || player.commandPermissionLevel.valueOf() >= 1
         : player.commandPermissionLevel.valueOf() >= 1;
 }
 
@@ -158,7 +158,7 @@ server.world.beforeEvents.playerBreakBlock.subscribe(ev => {
     const stateValues = getStateValues(blockId, currentState);
 
     if (!stateValues) {
-        sendMessage(player, "mcx:debug_stick.no.properties", [blockId]);
+        sendMessage(player, "message.mcx:debug_stick.no.properties", [blockId]);
         return;
     }
 
@@ -178,13 +178,15 @@ server.world.beforeEvents.playerBreakBlock.subscribe(ev => {
 
     const newState = states[newMode];
     const newValue = blockAllStates[newState];
-    sendMessage(player, "message.mcx:debug_stick.steate.mode", [newState, newValue]);
+    sendMessage(player, "message.mcx:debug_stick.state.mode", [newState, newValue]);
 });
 
 // カスタムコンポーネント登録
 server.system.beforeEvents.startup.subscribe(ev => {
     ev.itemComponentRegistry.registerCustomComponent(DEBUG_STICK_ID, {
         onUseOn: ({ source, block }) => {
+
+            source.sendMessage(`${source.commandPermissionLevel.valueOf()} >>> ${server.CommandPermissionLevel.Admin}`);
             if (!checkPermissions(source)) return;
 
             const blockId = block.type.id;

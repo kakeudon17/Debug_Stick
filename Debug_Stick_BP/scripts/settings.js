@@ -42,8 +42,8 @@ server.system.beforeEvents.startup.subscribe(ev => {
         server.system.run(() => {
             const form = new ModalFormData();
             form.title("settings.mcx:debug_stick.title");
-            form.dropdown("settings.mcx:debug_stick.platform_status", ["settings.mcx:debug_stick.platform_status.pc", "settings.mcx:debug_stick.platform_status.mobile",
-                "settings.mcx:debug_stick.platform_status.all"], { defaultValueIndex: platform_unused_status });
+            form.dropdown("settings.mcx:debug_stick.platform", ["settings.mcx:debug_stick.platform.pc", "settings.mcx:debug_stick.platform.mobile",
+                "settings.mcx:debug_stick.platform.all"], { defaultValueIndex: platform_unused_status });
             form.toggle("settings.mcx:debug_stick.toggle.states", { defaultValue: add_unused_states });
             form.toggle("settings.mcx:debug_stick.toggle.tag_mode", { defaultValue: tag_mode });
 
@@ -55,8 +55,8 @@ server.system.beforeEvents.startup.subscribe(ev => {
                 if (add_unused_states) {
                     modeMap.clear();
                 }
-                server.world.setDynamicProperty(DP.platform_unused_status, platform_unused_status);
-                server.world.setDynamicProperty(DP.add_unused_states, add_unused_states);
+                server.world.setDynamicProperty(DP.platform_status, platform_unused_status);
+                server.world.setDynamicProperty(DP.unused_states, add_unused_states);
                 server.world.setDynamicProperty(DP.tag_mode, tag_mode);
                 player.runCommand(`titleraw @s actionbar {"rawtext":[{"translate":"settings.mcx:debug_stick.updated"}]}`);
             });

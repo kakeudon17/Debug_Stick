@@ -6,7 +6,7 @@ message.mcx:debug_stick.state.change="%1" to %2
 message.mcx:debug_stick.no.properties=%1 has no properties
 
 settings.mcx:debug_stick.title=Debug Stick Settings
-settings.mcx:debug_stick.platform=Host Platform
+settings.mcx:debug_stick.platform=Host Platform Setting
 settings.mcx:debug_stick.platform.pc=PC / (Windows Server)
 settings.mcx:debug_stick.platform.mobile=Mobile / (Ubuntu Server)
 settings.mcx:debug_stick.platform.all=All
@@ -14,8 +14,8 @@ settings.mcx:debug_stick.toggle.states=Add Unused States
 settings.mcx:debug_stick.toggle.tag_mode=Enable Tag Mode
 settings.mcx:debug_stick.updated=Settings Updated
 
-howtoplay.debug_stick.title=Add-on: How to Use Debug Stick
-howtoplay.category.debug_stick=Add-on: Debug Stick
+howtoplay.debug_stick.title=Add-On: How to Use Debug Stick
+howtoplay.category.debug_stick=Add-On: Debug Stick
 howtoplay.debug_stick=How to Use Debug Stick
 
 howtoplay.mcx:debug_stick.header.1=What is the Debug Stick?

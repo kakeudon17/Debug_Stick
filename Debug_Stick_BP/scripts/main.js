@@ -185,8 +185,6 @@ server.world.beforeEvents.playerBreakBlock.subscribe(ev => {
 server.system.beforeEvents.startup.subscribe(ev => {
     ev.itemComponentRegistry.registerCustomComponent(DEBUG_STICK_ID, {
         onUseOn: ({ source, block }) => {
-
-            source.sendMessage(`${source.commandPermissionLevel.valueOf()} >>> ${server.CommandPermissionLevel.Admin}`);
             if (!checkPermissions(source)) return;
 
             const blockId = block.type.id;

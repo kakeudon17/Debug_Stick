@@ -1,5 +1,33 @@
 pack.description=このアドオンは、Java版にあるデバッグ棒を統合版用に再現したものです。
-pack.item.mc:debug_stick.name=§dデバッグ棒§r
-pack.steate.mode=「%1」を選択しました（%2）
-pack.state.change=「%1」を%2に変更しました
-pack.no.properties=%1はプロパティを持っていません
+item.mcx:debug_stick.name=デバッグ棒
+
+message.mcx:debug_stick.state.mode=「%1」を選択しました（%2）
+message.mcx:debug_stick.state.change=「%1」を%2に変更しました
+message.mcx:debug_stick.no.properties=%1はプロパティを持っていません
+
+settings.mcx:debug_stick.title=デバッグ棒の設定
+settings.mcx:debug_stick.platform=ホストプラットフォームの設定
+settings.mcx:debug_stick.platform.pc=PC / (Windows Server)
+settings.mcx:debug_stick.platform.mobile=モバイル / (Ubuntu Server)
+settings.mcx:debug_stick.platform.all=全て
+settings.mcx:debug_stick.toggle.states=未使用のステートを追加
+settings.mcx:debug_stick.toggle.tag_mode=タグモードを有効
+settings.mcx:debug_stick.updated=設定を更新しました
+
+howtoplay.debug_stick.title=アドオン：デバッグ棒の使い方
+howtoplay.category.debug_stick=アドオン：デバッグ棒
+howtoplay.debug_stick=デバッグ棒の使い方
+
+howtoplay.mcx:debug_stick.header.1=デバッグ棒とは？
+howtoplay.mcx:debug_stick.text.1=Java版に存在するアイテムを統合版で再現したものです。\nブロックの状態を簡単に変更できるツールです。
+howtoplay.mcx:debug_stick.header.2-1=使用条件
+howtoplay.mcx:debug_stick.text.2-1=デバッグ棒を使用するには、\nクリエイティブモードでかつ権限(OP)が必要です。\n※権限はタグモードを有効にすることで代替可能です。
+howtoplay.mcx:debug_stick.header.2-2=使用方法
+howtoplay.mcx:debug_stick.text.2-2.action=デバッグ棒を持ち、ブロックを狙い、\n:_input_key.use: 使用ボタンでステータスを変更できます。\n:_input_key.attack: 壊すボタンで変更するステータスを切り替えます。\n:_input_key.sneak: しゃがんでいる状態で\n上記の操作を行うと、変更が逆方向に動作します。
+howtoplay.mcx:debug_stick.text.2-2.touch.tap=デバッグ棒を持ち、ブロックを狙い、\nタッチで使用すると、ステータスを変更できます。\nタッチで長押しすると、変更するステータスを切り替えます。\n\n:_input_key.sneak: しゃがんでいる状態で\n上記の操作を行うと、変更が逆方向に動作します。
+howtoplay.mcx:debug_stick.header.3=設定画面
+howtoplay.mcx:debug_stick.text.3=コマンド: /settings:debug_stick
+howtoplay.mcx:debug_stick.text.3-1=・ホストプラットフォームの設定\n デバッグ棒の動作をホストプラットフォームに合わせて最適化します。
+howtoplay.mcx:debug_stick.text.3-2=・未使用のステートを追加\n デバッグ棒で使用できるステートを全て使用可能にします。
+howtoplay.mcx:debug_stick.text.3-3=・タグモードを有効\n タグモードを有効にすると、権限の代わりになります。
+howtoplay.mcx:debug_stick.tag_name=タグ: debug_stick

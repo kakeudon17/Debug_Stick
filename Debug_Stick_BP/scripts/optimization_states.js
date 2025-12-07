@@ -149,3 +149,37 @@ export const excludedstates = {
         ],
     }
 }
+
+export const states_result_blocks = {
+    // 向き指定
+    "minecraft:chest": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:trapped_chest": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:ender_chest": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:furnace": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:blast_furnace": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:smoker": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:ladder": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:wall_banner": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:wall_sign": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:spruce_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:birch_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:jungle_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:acacia_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:darkoak_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:mangrove_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:cherry_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:bamboo_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:crimson_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+    "minecraft:warped_wall_sign": { "facing_direction": [2, 3, 4, 5], },
+    // レール系
+    "minecraft:golden_rail": { "rail_direction": [0, 1, 2, 3, 4, 5] },
+    "minecraft:detector_rail": { "rail_direction": [0, 1, 2, 3, 4, 5] },
+    "minecraft:activator_rail": { "rail_direction": [0, 1, 2, 3, 4, 5] },
+    // 成長段階
+    "minecraft:cocoa": { "age": [0, 1, 2] },
+    "minecraft:nether_wart": { "age": [0, 1, 2, 3] },
+    "minecraft:chorus_flower": { "age": [0, 1, 2, 3, 4, 5] },
+    "minecraft:pink_petals": { "growth": [0, 1, 2, 3] },
+    "minecraft:wildflowers": { "growth": [0, 1, 2, 3] },
+    "minecraft:leaf_litter": { "growth": [0, 1, 2, 3] },
+}

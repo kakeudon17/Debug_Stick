@@ -1,7 +1,7 @@
 import * as server from "@minecraft/server";
 import { modeMap, platform_unused_status, add_unused_states, tag_mode } from "./settings.js";
-import { excludedstates } from "./excluded_states.js";
-import { states_result } from "./block_states.js";
+import { excluded_states, states_result_blocks } from "./optimizationstates.js";
+import { states_result_default } from "./block_states.js";
 
 const DEBUG_STICK_ID = "mcx:debug_stick";
 
@@ -37,16 +37,16 @@ function getFilteredStates(blockId, blockAllStates) {
     let defaultBlockExclusions = [];
 
     if (add_unused_states === false) {
-        defaultExcludedStates = excludedstates.default.states || [];
-        defaultBlockExclusions = excludedstates.default.blocks[blockId] || [];
+        defaultExcludedStates = excluded_states.default.states || [];
+        defaultBlockExclusions = excluded_states.default.blocks[blockId] || [];
     }
 
     // プラットフォームの設定を取得
     const platformKey = platform_unused_status === 0 ? "PC" : platform_unused_status === 1 ? "Mobile" : null;
 
     // プラットフォーム固有の除外ステート
-    const platformExcludedStates = platformKey ? (excludedstates[platformKey]?.states || []) : [];
-    const platformBlockExclusions = platformKey ? (excludedstates[platformKey]?.blocks?.[blockId] || []) : [];
+    const platformExcludedStates = platformKey ? (excluded_states[platformKey]?.states || []) : [];
+    const platformBlockExclusions = platformKey ? (excluded_states[platformKey]?.blocks?.[blockId] || []) : [];
 
     // すべての除外リストを結合
     const allExcludedStates = [...defaultExcludedStates, ...platformExcludedStates];
@@ -59,7 +59,7 @@ function getFilteredStates(blockId, blockAllStates) {
 
 // ステート値取得
 function getStateValues(blockId, currentState) {
-    return states_result.blocks[blockId]?.[currentState] || states_result.default[currentState];
+    return states_result_blocks[blockId]?.[currentState] || states_result_default[currentState];
 }
 
 // コンテナ内アイテム保存

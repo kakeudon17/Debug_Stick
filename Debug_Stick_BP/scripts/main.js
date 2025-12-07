@@ -1,7 +1,7 @@
 import * as server from "@minecraft/server";
-import { modeMap, platform_unused_status, add_unused_states, tag_mode } from "./settings.js";
-import { excluded_states, states_result_blocks } from "./optimization_states.js";
-import { states_result_default } from "./block_states.js";
+import { modeMap, platform_unused_status, add_unused_states, tag_mode, addon } from "./settings.js";
+import { excluded_states } from "./optimization_states.js";
+import { states_result } from "./block_states.js";
 
 const DEBUG_STICK_ID = "mcx:debug_stick";
 
@@ -26,6 +26,31 @@ function checkPermissions(player) {
     return tag_mode
         ? player.hasTag("debug_stick") || player.commandPermissionLevel.valueOf() >= 1
         : player.commandPermissionLevel.valueOf() >= 1;
+}
+
+// アドオン取得・マージ
+function Getaddon() {
+    for (let i = 0; i < addon.length; i++) {
+        const addonRaw = server.world.getDynamicProperty(addon[i]);
+        const addonData = addonRaw ? JSON.parse(addonRaw) : null;
+        console.warn(addon[i])
+
+        if (addonData) {
+            // default のマージ
+            if (addonData.default) {
+                Object.assign(states_result.default, addonData.default);
+            }
+            // blocks のマージ
+            if (addonData.blocks) {
+                for (const blockId in addonData.blocks) {
+                    if (!states_result.blocks[blockId]) {
+                        states_result.blocks[blockId] = {};
+                    }
+                    Object.assign(states_result.blocks[blockId], addonData.blocks[blockId]);
+                }
+            }
+        }
+    }
 }
 
 // ステートフィルタリング
@@ -59,7 +84,7 @@ function getFilteredStates(blockId, blockAllStates) {
 
 // ステート値取得
 function getStateValues(blockId, currentState) {
-    return states_result_blocks[blockId]?.[currentState] || states_result_default[currentState];
+    return states_result.blocks[blockId]?.[currentState] || states_result.default[currentState];
 }
 
 // コンテナ内アイテム保存
@@ -147,6 +172,7 @@ server.world.beforeEvents.playerBreakBlock.subscribe(ev => {
     const filteredStates = getFilteredStates(blockId, blockAllStates);
 
     if (!checkPermissions(player)) return;
+    Getaddon();
 
     // コンテナアイテムの保存
     const container = block.getComponent("inventory")?.container;
@@ -186,6 +212,7 @@ server.system.beforeEvents.startup.subscribe(ev => {
     ev.itemComponentRegistry.registerCustomComponent(DEBUG_STICK_ID, {
         onUseOn: ({ source, block }) => {
             if (!checkPermissions(source)) return;
+            Getaddon();
 
             const blockId = block.type.id;
             const blockAllStates = block.permutation.getAllStates();

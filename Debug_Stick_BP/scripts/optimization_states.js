@@ -1,4 +1,4 @@
-export const excludedstates = {
+export const excluded_states = {
     "PC": {
         "blocks": {
             "minecraft:campfire": ["direction"],
@@ -146,6 +146,7 @@ export const excludedstates = {
             "dirt_type", "flower_type", "double_plant_type", "monster_egg_stone_type",
             "old_leaf_type", "new_leaf_type", "prismarine_block_type", "sand_type", "sand_stone_type",
             "stone_type", "stone_brick_type", "tall_grass_type", "structure_void_type", "output_lit_bit",
+            "coral_fan_direction"
         ],
     }
 }

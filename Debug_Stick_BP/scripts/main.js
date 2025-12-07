@@ -1,6 +1,6 @@
 import * as server from "@minecraft/server";
 import { modeMap, platform_unused_status, add_unused_states, tag_mode } from "./settings.js";
-import { excluded_states, states_result_blocks } from "./optimizationstates.js";
+import { excluded_states, states_result_blocks } from "./optimization_states.js";
 import { states_result_default } from "./block_states.js";
 
 const DEBUG_STICK_ID = "mcx:debug_stick";

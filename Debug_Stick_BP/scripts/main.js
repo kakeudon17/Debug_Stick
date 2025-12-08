@@ -28,12 +28,27 @@ function checkPermissions(player) {
         : player.commandPermissionLevel.valueOf() >= 1;
 }
 
+server.system.beforeEvents.startup.subscribe(ev => {
+    ev.customCommandRegistry.registerCommand({
+        name: "settings:db_dp",
+        description: "Debug Stick Dynamic Property Test",
+        permissionLevel: server.CommandPermissionLevel.Any,
+    }, (origin) => {
+        const raw = server.world.getDynamicProperty(JSON.parse("wafu:debug_stick"));
+        origin.sourceEntity.sendMessage(`${raw}`);
+    });
+});
+
 // アドオン取得・マージ
+/* 2025/12/8 使用不可
 function Getaddon() {
     for (let i = 0; i < addon.length; i++) {
-        const addonRaw = server.world.getDynamicProperty(addon[i]);
-        const addonData = addonRaw ? JSON.parse(addonRaw) : null;
-        console.warn(addon[i])
+        server.system.run(() => {
+            const GetaddonData = server.world.getDynamicProperty(addon[i]);
+            console.warn(addon[i], GetaddonData);
+        });
+        const ddonData = JSON.parse(GetaddonData);
+        const addonData = JSON.parse(server.world.getDynamicProperty(addon[i]));
 
         if (addonData) {
             // default のマージ
@@ -52,6 +67,7 @@ function Getaddon() {
         }
     }
 }
+*/
 
 // ステートフィルタリング
 function getFilteredStates(blockId, blockAllStates) {
@@ -172,7 +188,6 @@ server.world.beforeEvents.playerBreakBlock.subscribe(ev => {
     const filteredStates = getFilteredStates(blockId, blockAllStates);
 
     if (!checkPermissions(player)) return;
-    Getaddon();
 
     // コンテナアイテムの保存
     const container = block.getComponent("inventory")?.container;
@@ -212,7 +227,6 @@ server.system.beforeEvents.startup.subscribe(ev => {
     ev.itemComponentRegistry.registerCustomComponent(DEBUG_STICK_ID, {
         onUseOn: ({ source, block }) => {
             if (!checkPermissions(source)) return;
-            Getaddon();
 
             const blockId = block.type.id;
             const blockAllStates = block.permutation.getAllStates();

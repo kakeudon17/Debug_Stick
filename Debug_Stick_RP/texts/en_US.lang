@@ -23,11 +23,14 @@ config.mcx:debug_stick.add=Add
 
 config.mcx:debug_stick.add.title=Add Feature
 config.mcx:debug_stick.add.input=Property Name
+config.mcx:debug_stick.add.error.body=An identical string already exists\n\n§cTextError: "%1"
 
 config.mcx:debug_stick.delete.title=Remove Feature
 config.mcx:debug_stick.delete.body=Delete property "%1"?
 config.mcx:debug_stick.delete.confirm=Delete
 config.mcx:debug_stick.delete.cancel=Cancel
+
+mcx:debug_stick.error.text=§cError
 
 howtoplay.debug_stick.title=Add-On: How to Use Debug Stick
 howtoplay.category.debug_stick=Add-On: Debug Stick

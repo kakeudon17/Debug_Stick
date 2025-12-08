@@ -101,8 +101,17 @@ server.system.beforeEvents.startup.subscribe(ev => {
                                                 ? JSON.parse(server.world.getDynamicProperty(DP.addon))
                                                 : addon;
                                             if (!Array.isArray(addon)) addon = [];
-                                            addon.push(input);
-                                            server.world.setDynamicProperty(DP.addon, JSON.stringify(addon));
+                                            if (!addon.includes(input)) {
+                                                addon.push(input);
+                                                server.world.setDynamicProperty(DP.addon, JSON.stringify(addon));
+                                            } else {
+                                                const error_msg_form = new MessageFormData();
+                                                error_msg_form.title("mcx:debug_stick.error.text");
+                                                error_msg_form.body({ rawtext: [{ translate: "config.mcx:debug_stick.add.error.body", with: [input] }] });
+                                                error_msg_form.button1("gui.retry");
+                                                error_msg_form.button2("gui.tryAgain");
+                                                error_msg_form.show(player);
+                                            }
                                         }
                                     });
                                     break;
@@ -115,25 +124,15 @@ server.system.beforeEvents.startup.subscribe(ev => {
                                     delete_form.button1("config.mcx:debug_stick.delete.confirm");
                                     delete_form.button2("config.mcx:debug_stick.delete.cancel");
                                     delete_form.show(player).then(response => {
-                                        if (response.canceled) return;
-                                        if (!response.selection[undefined]) {
-                                            addon = server.world.getDynamicProperty(DP.addon)
-                                                ? JSON.parse(server.world.getDynamicProperty(DP.addon))
-                                                : addon;
-                                            addon = server.world.getDynamicProperty(DP.addon)
-                                                ? JSON.parse(server.world.getDynamicProperty(DP.addon))
-                                                : addon;
-                                            if (!Array.isArray(addon)) addon = [];
-                                            addon = server.world.getDynamicProperty(DP.addon)
-                                                ? JSON.parse(server.world.getDynamicProperty(DP.addon))
-                                                : addon;
-                                            if (!Array.isArray(addon)) addon = [];
+                                        if (response.canceled || response.selection == 1) return;
+                                        addon = server.world.getDynamicProperty(DP.addon)
+                                            ? JSON.parse(server.world.getDynamicProperty(DP.addon))
+                                            : addon;
+                                        if (!Array.isArray(addon)) addon = [];
 
-                                            if (addon_num >= 0 && addon_num < addon.length) {
-                                                addon.splice(addon_num, 1);
-                                                server.world.setDynamicProperty(DP.addon, JSON.stringify(addon));
-                                            }
-
+                                        if (addon_num >= 0 && addon_num < addon.length) {
+                                            addon.splice(addon_num, 1);
+                                            server.world.setDynamicProperty(DP.addon, JSON.stringify(addon));
                                         }
                                     });
                                     break;

@@ -22,11 +22,14 @@ config.mcx:debug_stick.add=追加する
 
 config.mcx:debug_stick.add.title=機能追加
 config.mcx:debug_stick.add.input=プロパティ名
+config.mcx:debug_stick.add.error.body=すでに同じ文字列が存在します\n\n§cTextError: "%1"
 
 config.mcx:debug_stick.delete.title=機能削除
 config.mcx:debug_stick.delete.body=プロパティ「%1」を削除しますか？
 config.mcx:debug_stick.delete.confirm=削除する
 config.mcx:debug_stick.delete.cancel=キャンセル
+
+mcx:debug_stick.error.text=§cエラー
 
 howtoplay.debug_stick.title=アドオン：デバッグ棒の使い方
 howtoplay.category.debug_stick=アドオン：デバッグ棒

@@ -39,36 +39,6 @@ server.system.beforeEvents.startup.subscribe(ev => {
     });
 });
 
-// アドオン取得・マージ
-/* 2025/12/8 使用不可
-function Getaddon() {
-    for (let i = 0; i < addon.length; i++) {
-        server.system.run(() => {
-            const GetaddonData = server.world.getDynamicProperty(addon[i]);
-            console.warn(addon[i], GetaddonData);
-        });
-        const ddonData = JSON.parse(GetaddonData);
-        const addonData = JSON.parse(server.world.getDynamicProperty(addon[i]));
-
-        if (addonData) {
-            // default のマージ
-            if (addonData.default) {
-                Object.assign(states_result.default, addonData.default);
-            }
-            // blocks のマージ
-            if (addonData.blocks) {
-                for (const blockId in addonData.blocks) {
-                    if (!states_result.blocks[blockId]) {
-                        states_result.blocks[blockId] = {};
-                    }
-                    Object.assign(states_result.blocks[blockId], addonData.blocks[blockId]);
-                }
-            }
-        }
-    }
-}
-*/
-
 // ステートフィルタリング
 function getFilteredStates(blockId, blockAllStates) {
     const allEntries = Object.entries(blockAllStates || {});

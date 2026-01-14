@@ -5,6 +5,9 @@ message.mcx:debug_stick.state.mode=「%1」を選択しました（%2）
 message.mcx:debug_stick.state.change=「%1」を%2に変更しました
 message.mcx:debug_stick.no.properties=%1はプロパティを持っていません
 
+settings.mcx:debug_stick.select.settings=一般設定
+settings.mcx:debug_stick.select.config=高度な設定
+
 settings.mcx:debug_stick.title=デバッグ棒の設定
 settings.mcx:debug_stick.platform=ホストプラットフォームの設定
 settings.mcx:debug_stick.platform.pc=PC / (Windows Server)
@@ -12,7 +15,21 @@ settings.mcx:debug_stick.platform.mobile=モバイル / (Ubuntu Server)
 settings.mcx:debug_stick.platform.all=全て
 settings.mcx:debug_stick.toggle.states=未使用のステートを追加
 settings.mcx:debug_stick.toggle.tag_mode=タグモードを有効
-settings.mcx:debug_stick.updated=設定を更新しました
+
+config.mcx:debug_stick.title=高度な設定
+config.mcx:debug_stick.body=追加機能 一覧
+config.mcx:debug_stick.add=追加する
+
+config.mcx:debug_stick.add.title=機能追加
+config.mcx:debug_stick.add.input=プロパティ名
+config.mcx:debug_stick.add.error.body=すでに同じ文字列が存在します\n\n§cTextError: "%1"
+
+config.mcx:debug_stick.delete.title=機能削除
+config.mcx:debug_stick.delete.body=プロパティ「%1」を削除しますか？
+config.mcx:debug_stick.delete.confirm=削除する
+config.mcx:debug_stick.delete.cancel=キャンセル
+
+mcx:debug_stick.error.text=§cエラー
 
 howtoplay.debug_stick.title=アドオン：デバッグ棒の使い方
 howtoplay.category.debug_stick=アドオン：デバッグ棒

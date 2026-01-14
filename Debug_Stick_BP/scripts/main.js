@@ -1,6 +1,6 @@
 import * as server from "@minecraft/server";
-import { modeMap, platform_unused_status, add_unused_states, tag_mode } from "./settings.js";
-import { excludedstates } from "./excluded_states.js";
+import { modeMap, platform_unused_status, add_unused_states, tag_mode, addon } from "./settings.js";
+import { excluded_states } from "./optimization_states.js";
 import { states_result } from "./block_states.js";
 
 const DEBUG_STICK_ID = "mcx:debug_stick";
@@ -28,6 +28,17 @@ function checkPermissions(player) {
         : player.commandPermissionLevel.valueOf() >= 1;
 }
 
+server.system.beforeEvents.startup.subscribe(ev => {
+    ev.customCommandRegistry.registerCommand({
+        name: "settings:db_dp",
+        description: "Debug Stick Dynamic Property Test",
+        permissionLevel: server.CommandPermissionLevel.Any,
+    }, (origin) => {
+        const raw = server.world.getDynamicProperty(JSON.parse("wafu:debug_stick"));
+        origin.sourceEntity.sendMessage(`${raw}`);
+    });
+});
+
 // ステートフィルタリング
 function getFilteredStates(blockId, blockAllStates) {
     const allEntries = Object.entries(blockAllStates || {});
@@ -37,16 +48,16 @@ function getFilteredStates(blockId, blockAllStates) {
     let defaultBlockExclusions = [];
 
     if (add_unused_states === false) {
-        defaultExcludedStates = excludedstates.default.states || [];
-        defaultBlockExclusions = excludedstates.default.blocks[blockId] || [];
+        defaultExcludedStates = excluded_states.default.states || [];
+        defaultBlockExclusions = excluded_states.default.blocks[blockId] || [];
     }
 
     // プラットフォームの設定を取得
     const platformKey = platform_unused_status === 0 ? "PC" : platform_unused_status === 1 ? "Mobile" : null;
 
     // プラットフォーム固有の除外ステート
-    const platformExcludedStates = platformKey ? (excludedstates[platformKey]?.states || []) : [];
-    const platformBlockExclusions = platformKey ? (excludedstates[platformKey]?.blocks?.[blockId] || []) : [];
+    const platformExcludedStates = platformKey ? (excluded_states[platformKey]?.states || []) : [];
+    const platformBlockExclusions = platformKey ? (excluded_states[platformKey]?.blocks?.[blockId] || []) : [];
 
     // すべての除外リストを結合
     const allExcludedStates = [...defaultExcludedStates, ...platformExcludedStates];

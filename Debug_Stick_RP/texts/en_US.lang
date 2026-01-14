@@ -5,6 +5,9 @@ message.mcx:debug_stick.state.mode=selected "%1" (%2)
 message.mcx:debug_stick.state.change="%1" to %2
 message.mcx:debug_stick.no.properties=%1 has no properties
 
+settings.mcx:debug_stick.select.settings=General Settings
+settings.mcx:debug_stick.select.config=Advanced Settings
+
 settings.mcx:debug_stick.title=Debug Stick Settings
 settings.mcx:debug_stick.platform=Host Platform Setting
 settings.mcx:debug_stick.platform.pc=PC / (Windows Server)
@@ -12,7 +15,22 @@ settings.mcx:debug_stick.platform.mobile=Mobile / (Ubuntu Server)
 settings.mcx:debug_stick.platform.all=All
 settings.mcx:debug_stick.toggle.states=Add Unused States
 settings.mcx:debug_stick.toggle.tag_mode=Enable Tag Mode
-settings.mcx:debug_stick.updated=Settings Updated
+
+
+config.mcx:debug_stick.title=Advanced Settings
+config.mcx:debug_stick.body=List of Additional Features
+config.mcx:debug_stick.add=Add
+
+config.mcx:debug_stick.add.title=Add Feature
+config.mcx:debug_stick.add.input=Property Name
+config.mcx:debug_stick.add.error.body=An identical string already exists\n\n§cTextError: "%1"
+
+config.mcx:debug_stick.delete.title=Remove Feature
+config.mcx:debug_stick.delete.body=Delete property "%1"?
+config.mcx:debug_stick.delete.confirm=Delete
+config.mcx:debug_stick.delete.cancel=Cancel
+
+mcx:debug_stick.error.text=§cError
 
 howtoplay.debug_stick.title=Add-On: How to Use Debug Stick
 howtoplay.category.debug_stick=Add-On: Debug Stick

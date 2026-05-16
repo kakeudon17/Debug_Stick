@@ -1,5 +1,5 @@
 import * as server from "@minecraft/server";
-import { modeMap, platform_unused_status, add_unused_states, tag_mode, addon } from "./settings.js";
+import { modeMap, platform_unused_status, add_unused_states, tag_mode } from "./settings.js";
 import { excluded_states } from "./optimization_states.js";
 import { states_result } from "./block_states.js";
 
